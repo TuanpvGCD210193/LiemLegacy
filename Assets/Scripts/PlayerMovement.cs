@@ -34,6 +34,7 @@ using UnityEngine;
         [SerializeField] Vector2 SideAttackArea, UpAttackArea, DownAttackArea;
         [SerializeField] LayerMask attackableLayer;
         [SerializeField] float damage;
+        [SerializeField] GameObject slashEffect;
 
         private float xAxis;
         private float yAxis;
@@ -143,18 +144,23 @@ using UnityEngine;
                 timeSinceAttack = 0;
                 animator.SetTrigger("Attacking");
                 if (yAxis == 0 || yAxis < 0 && Grounded())
-                    {
+                {
                         Hitbox(SideAttackTransform, SideAttackArea);
-                    }
+                        Instantiate(slashEffect, SideAttackTransform);
+
+                }
                 else if (yAxis > 0)
-                    {
-                        Hitbox(UpAttackTransform, UpAttackArea);
-                    }
+                {
+                    Hitbox(UpAttackTransform, UpAttackArea);
+                    SlashEffectAtAngle(slashEffect, 80, UpAttackTransform);
+                }
                 else if (yAxis < 0 && !Grounded())
-                    {
-                        Hitbox(DownAttackTransform, DownAttackArea);
-                    }
-            }
+                {
+                    Debug.Log("Down Attack Activated!");
+                    Hitbox(DownAttackTransform, DownAttackArea);
+                    SlashEffectAtAngle(slashEffect, -90, DownAttackTransform);
+                }
+        }
         }
 
         private void Hitbox (Transform _attackTransform, Vector2 _attackArea)
@@ -162,21 +168,27 @@ using UnityEngine;
             Collider2D[] objectsToHit = Physics2D.OverlapBoxAll(_attackTransform.position, _attackArea, 0, attackableLayer);
 
 
-        //for (int i = 0; i < objectsToHit.Length; i++)
-        //{
-        //    if (objectsToHit[i].GetComponent<Enemy>() != null)
-        //    {
-        //        objectsToHit[i].GetComponent<Enemy>().EnemyHit(damage);
-        //    }
+            for (int i = 0; i < objectsToHit.Length; i++)
+            {
+                if (objectsToHit[i].GetComponent<Enemy>() != null)
+                {
+                    objectsToHit[i].GetComponent<Enemy>().EnemyHit(damage);
+                }
 
-        //}
+            }
 
-        if (objectsToHit.Length > 0)
-        {
-            Debug.Log("Hit");
+            if (objectsToHit.Length > 0)
+            {
+                Debug.Log("Hit");
+            }
         }
-    }    
-   
+
+        void SlashEffectAtAngle(GameObject _slashEffect, int _effectAngle, Transform _attackTransform)
+        {
+            _slashEffect = Instantiate(_slashEffect, _attackTransform);
+            _slashEffect.transform.eulerAngles = new Vector3(0, 0, _effectAngle);
+            _slashEffect.transform.localScale = new Vector2(transform.localScale.x, transform.localScale.y);
+        }
 
         public bool Grounded()
         {
