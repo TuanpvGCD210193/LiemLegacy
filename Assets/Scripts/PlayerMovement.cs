@@ -142,18 +142,18 @@ using UnityEngine;
             {
                 timeSinceAttack = 0;
                 animator.SetTrigger("Attacking");
-            if (yAxis == 0 || yAxis < 0 && Grounded())
-            {
-                Hitbox(SideAttackTransform, SideAttackArea);
-            }
-            else if (yAxis > 0)
-            {
-                Hitbox(UpAttackTransform, UpAttackArea);
-            }
-            else if (yAxis < 0 && !Grounded())
-            {
-                Hitbox(DownAttackTransform, DownAttackArea);
-            }
+                if (yAxis == 0 || yAxis < 0 && Grounded())
+                    {
+                        Hitbox(SideAttackTransform, SideAttackArea);
+                    }
+                else if (yAxis > 0)
+                    {
+                        Hitbox(UpAttackTransform, UpAttackArea);
+                    }
+                else if (yAxis < 0 && !Grounded())
+                    {
+                        Hitbox(DownAttackTransform, DownAttackArea);
+                    }
             }
         }
 
@@ -161,14 +161,20 @@ using UnityEngine;
         {
             Collider2D[] objectsToHit = Physics2D.OverlapBoxAll(_attackTransform.position, _attackArea, 0, attackableLayer);
 
-            for(int i = 0; i < objectsToHit.Length; i++)
-            {
-                if (objectsToHit[i].GetComponent<Enemy>() != null)
-                {
-                    objectsToHit[i].GetComponent<Enemy>().EnemyHit(damage);
-                }
 
-            }
+        //for (int i = 0; i < objectsToHit.Length; i++)
+        //{
+        //    if (objectsToHit[i].GetComponent<Enemy>() != null)
+        //    {
+        //        objectsToHit[i].GetComponent<Enemy>().EnemyHit(damage);
+        //    }
+
+        //}
+
+        if (objectsToHit.Length > 0)
+        {
+            Debug.Log("Hit");
+        }
     }    
    
 

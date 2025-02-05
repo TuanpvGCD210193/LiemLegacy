@@ -318,12 +318,12 @@ MonoBehaviour:
   SideAttackTransform: {fileID: 1379494547}
   UpAttackTransform: {fileID: 1392253659}
   DownAttackTransform: {fileID: 1702854901}
-  SideAttackArea: {x: 4.56, y: 3.38}
+  SideAttackArea: {x: 4.5, y: 3.38}
   UpAttackArea: {x: 3.5, y: 4.5}
   DownAttackArea: {x: 3.5, y: 4.5}
   attackableLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 64
   damage: 2
 --- !u!95 &299696130
 Animator:
@@ -950,7 +950,7 @@ GameObject:
   - component: {fileID: 1001650136}
   - component: {fileID: 1001650135}
   - component: {fileID: 1001650134}
-  m_Layer: 3
+  m_Layer: 6
   m_Name: Ground (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1098,7 +1098,7 @@ Transform:
   m_GameObject: {fileID: 1379494546}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.77, y: -0.25, z: 0}
+  m_LocalPosition: {x: 2.68, y: -0.13, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
