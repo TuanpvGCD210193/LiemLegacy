@@ -1,4 +1,4 @@
-    using System.Collections;
+﻿    using System.Collections;
 using UnityEngine;
 
     public class PlayerMovement : MonoBehaviour
@@ -36,11 +36,22 @@ using UnityEngine;
         [SerializeField] float damage;
         [SerializeField] GameObject slashEffect;
 
+        [Header("Player Attack recoil")]
+        [SerializeField] private float recoilXSteps = 5;
+        [SerializeField] private float recoilYSteps = 5;
+        [SerializeField] private float recoilXSpeed = 100;
+        [SerializeField] private float recoilYSpeed = 100;
+        private int stepsXRecoiled, stepsYRecoiled;
+
+        [Header("Player Health Point setting")]
+        public int health;
+        public int maxHealth;
+
         private float xAxis;
         private float yAxis;
         private Rigidbody2D rb;
         Animator animator;
-        PlayerStateList playerState;
+        public PlayerStateList playerState;
         private float gravity;
         private bool canDash = true;
         private bool dashed;
@@ -59,6 +70,7 @@ using UnityEngine;
             {
                 Instance = this;
             }
+            health = maxHealth;
         }
 
         // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -90,6 +102,7 @@ using UnityEngine;
             PlayerFlip();
             StartDash();
             Attack();
+            Recoil();
         }
 
         void GetInputs()
@@ -145,43 +158,62 @@ using UnityEngine;
                 animator.SetTrigger("Attacking");
                 if (yAxis == 0 || yAxis < 0 && Grounded())
                 {
-                        Hitbox(SideAttackTransform, SideAttackArea);
+                        Hitbox(SideAttackTransform, SideAttackArea, ref playerState.recoilingX, recoilXSpeed);
                         Instantiate(slashEffect, SideAttackTransform);
 
                 }
                 else if (yAxis > 0)
                 {
-                    Hitbox(UpAttackTransform, UpAttackArea);
+                    Hitbox(UpAttackTransform, UpAttackArea, ref playerState.recoilingY, recoilYSpeed);
                     SlashEffectAtAngle(slashEffect, 80, UpAttackTransform);
                 }
-                else if (yAxis < 0 && !Grounded())
-                {
-                    Debug.Log("Down Attack Activated!");
-                    Hitbox(DownAttackTransform, DownAttackArea);
-                    SlashEffectAtAngle(slashEffect, -90, DownAttackTransform);
-                }
+            //else if (yAxis < 0 && !Grounded())
+            //{
+            //    Debug.Log("Down Attack Activated!");
+            //    Hitbox(DownAttackTransform, DownAttackArea, , ref playerState.recoilingY, recoilYSpeed);
+            //    SlashEffectAtAngle(slashEffect, -90, DownAttackTransform);
+            //}
         }
-        }
+    }
 
-        private void Hitbox (Transform _attackTransform, Vector2 _attackArea)
+        private void Hitbox(Transform _attackTransform, Vector2 _attackArea, ref bool _recoilDir, float _recoilStrength)
         {
-            Collider2D[] objectsToHit = Physics2D.OverlapBoxAll(_attackTransform.position, _attackArea, 0, attackableLayer);
+        //Collider2D[] objectsToHit = Physics2D.OverlapBoxAll(_attackTransform.position, _attackArea, 0, attackableLayer);
 
+        //if (objectsToHit.Length > 0)
+        //{
+        //    _recoilDir = true;
+        //}
 
-            for (int i = 0; i < objectsToHit.Length; i++)
+        //for (int i = 0; i < objectsToHit.Length; i++)
+        //{
+        //    if (objectsToHit[i].GetComponent<Enemy>() != null)
+        //    {
+        //        objectsToHit[i].GetComponent<Enemy>().EnemyHit
+        //        (damage, (transform.position - objectsToHit[i].transform.position).normalized, _recoilStrength);
+        //    }
+
+        //}
+
+        Collider2D[] objectsToHit = Physics2D.OverlapBoxAll(_attackTransform.position, _attackArea, 0, attackableLayer);
+
+        bool hitSomething = false;
+
+        for (int i = 0; i < objectsToHit.Length; i++)
+        {
+            Enemy enemy = objectsToHit[i].GetComponent<Enemy>();
+            if (enemy != null)
             {
-                if (objectsToHit[i].GetComponent<Enemy>() != null)
-                {
-                    objectsToHit[i].GetComponent<Enemy>().EnemyHit(damage);
-                }
-
-            }
-
-            if (objectsToHit.Length > 0)
-            {
-                Debug.Log("Hit");
+                hitSomething = true; // Chỉ recoil nếu thực sự đánh trúng enemy
+                enemy.EnemyHit(damage, (transform.position - objectsToHit[i].transform.position).normalized, _recoilStrength);
             }
         }
+
+        if (hitSomething)
+        {
+            _recoilDir = true;
+        }
+    }
 
         void SlashEffectAtAngle(GameObject _slashEffect, int _effectAngle, Transform _attackTransform)
         {
@@ -190,7 +222,98 @@ using UnityEngine;
             _slashEffect.transform.localScale = new Vector2(transform.localScale.x, transform.localScale.y);
         }
 
-        public bool Grounded()
+    void Recoil()
+    {
+        if (playerState.recoilingX)
+        {
+            if (playerState.lookingRight)
+            {
+                rb.linearVelocity = new Vector2(-recoilXSpeed, 0);
+            }
+            else
+            {
+                rb.linearVelocity = new Vector2(recoilXSpeed, 0);
+            }
+
+            //if (playerState.recoilingX)
+            //{
+            //    rb.linearVelocity = new Vector2(-transform.localScale.x * recoilXSpeed, 0);
+            //}
+        }
+
+        if (playerState.recoilingY)
+        {
+            rb.gravityScale = 0;
+            if (yAxis < 0)
+            {
+                rb.linearVelocity = new Vector2(rb.linearVelocity.x, recoilYSpeed);
+            }
+            else
+            {
+                rb.linearVelocity = new Vector2(rb.linearVelocity.x, -recoilYSpeed);
+            }
+            airJumpCounter = 0;
+        }
+        else
+        {
+            rb.gravityScale = gravity;
+        }
+
+        //stop recoil
+        if (playerState.recoilingX && stepsXRecoiled < recoilXSteps)
+        {
+            stepsXRecoiled++;
+        }
+        else
+        {
+            StopRecoilX();
+        }
+        if (playerState.recoilingY && stepsYRecoiled < recoilYSteps)
+        {
+            stepsYRecoiled++;
+        }
+        else
+        {
+            StopRecoilY();
+        }
+
+        if (Grounded())
+        {
+            StopRecoilY();
+        }
+    }
+
+    void StopRecoilX()
+    {
+        stepsXRecoiled = 0;
+        playerState.recoilingX = false;
+    }
+    void StopRecoilY()
+    {
+        stepsYRecoiled = 0;
+        playerState.recoilingY = false;
+    }
+
+    public void TakeDamage(float _damage)
+    {
+        health -= Mathf.RoundToInt(_damage);
+        StartCoroutine(StopTakingDamage());
+    }
+    IEnumerator StopTakingDamage()
+    {
+        playerState.invincible = true;
+        animator.SetTrigger("TakeDamage");
+        ClampHealth();
+        yield return new WaitForSeconds(1.5f);// tg bất chỉ định
+        playerState.invincible = false;
+    }
+
+    void ClampHealth()
+    {
+        health = Mathf.Clamp(health, 0, maxHealth);
+    }
+
+    public bool Grounded()
         {
             if(Physics2D.Raycast(groundCheckPoint.position, Vector2.down, groundCheckY, WhatIsGround) 
                 || Physics2D.Raycast(groundCheckPoint.position + new Vector3(groundCheckX, 0, 0), Vector2.down, groundCheckY, WhatIsGround)
@@ -235,6 +358,7 @@ using UnityEngine;
             if (xAxis < 0)
             {
                 transform.localScale = new Vector2(-1, transform.localScale.y);
+
             }
             else if (xAxis > 0)
             {
