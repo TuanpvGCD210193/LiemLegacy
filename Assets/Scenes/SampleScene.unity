@@ -315,6 +315,8 @@ MonoBehaviour:
   dashTime: 0.2
   dashCoolDown: 0.35
   dashEffect: {fileID: 7472174087844332484, guid: 5318a015d82db64499151a0cf6c7b546, type: 3}
+  timeBetweenAttack: 0.4
+  timeSinceAttack: 0
   SideAttackTransform: {fileID: 1379494547}
   UpAttackTransform: {fileID: 1392253659}
   DownAttackTransform: {fileID: 1702854901}
@@ -1132,7 +1134,7 @@ Transform:
   m_GameObject: {fileID: 1001650133}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 3.91, z: 0}
+  m_LocalPosition: {x: -0.18, y: -1.58, z: 0}
   m_LocalScale: {x: 5, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

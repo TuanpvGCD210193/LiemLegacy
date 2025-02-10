@@ -1,4 +1,5 @@
 ﻿    using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
     public class PlayerMovement : MonoBehaviour
@@ -29,7 +30,8 @@ using UnityEngine;
 
         [Header("Change Attack Setting for player")]
         bool attack = false;
-        float timeBetweenAttack, timeSinceAttack;
+        [SerializeField] private float timeBetweenAttack;
+        [SerializeField] private float timeSinceAttack;
         [SerializeField] Transform SideAttackTransform, UpAttackTransform, DownAttackTransform;
         [SerializeField] Vector2 SideAttackArea, UpAttackArea, DownAttackArea;
         [SerializeField] LayerMask attackableLayer;
@@ -70,7 +72,7 @@ using UnityEngine;
             {
                 Instance = this;
             }
-            health = maxHealth;
+            Health = maxHealth;
         }
 
         // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -102,14 +104,20 @@ using UnityEngine;
             PlayerFlip();
             StartDash();
             Attack();
+            //Recoil();
+        }
+
+        private void FixedUpdate()
+        {
+            if (playerState.dashing) return;
             Recoil();
         }
 
-        void GetInputs()
+    void GetInputs()
         {
             xAxis = Input.GetAxisRaw("Horizontal");
             yAxis = Input.GetAxisRaw("Vertical");
-            attack = Input.GetMouseButtonDown(0); 
+            attack = Input.GetButtonDown("Attack");
             
 
         }
@@ -195,25 +203,45 @@ using UnityEngine;
 
         //}
 
-        Collider2D[] objectsToHit = Physics2D.OverlapBoxAll(_attackTransform.position, _attackArea, 0, attackableLayer);
+        //Collider2D[] objectsToHit = Physics2D.OverlapBoxAll(_attackTransform.position, _attackArea, 0, attackableLayer);
 
-        bool hitSomething = false;
+        //bool hitSomething = false;
 
-        for (int i = 0; i < objectsToHit.Length; i++)
-        {
-            Enemy enemy = objectsToHit[i].GetComponent<Enemy>();
-            if (enemy != null)
+        //for (int i = 0; i < objectsToHit.Length; i++)
+        //{
+        //    Enemy enemy = objectsToHit[i].GetComponent<Enemy>();
+        //    if (enemy != null)
+        //    {
+        //        hitSomething = true; // Chỉ recoil nếu thực sự đánh trúng enemy
+        //        enemy.EnemyHit(damage, (transform.position - objectsToHit[i].transform.position).normalized, _recoilStrength);
+        //    }
+        //}
+
+        //if (hitSomething)
+        //{
+        //    _recoilDir = true;
+        //}
+            Collider2D[] objectsToHit = Physics2D.OverlapBoxAll(_attackTransform.position, _attackArea, 0, attackableLayer);
+
+            bool hitSomething = false;
+            HashSet<Enemy> hitEnemies = new HashSet<Enemy>();
+
+            for (int i = 0; i < objectsToHit.Length; i++)
             {
-                hitSomething = true; // Chỉ recoil nếu thực sự đánh trúng enemy
-                enemy.EnemyHit(damage, (transform.position - objectsToHit[i].transform.position).normalized, _recoilStrength);
+                Enemy enemy = objectsToHit[i].GetComponent<Enemy>();
+                if (enemy != null && !hitEnemies.Contains(enemy))
+                {
+                    hitSomething = true;
+                    hitEnemies.Add(enemy);
+                    enemy.EnemyHit(damage, (transform.position - objectsToHit[i].transform.position).normalized, _recoilStrength);
+                }
+            }
+
+            if (hitSomething)
+            {
+                _recoilDir = true;
             }
         }
-
-        if (hitSomething)
-        {
-            _recoilDir = true;
-        }
-    }
 
         void SlashEffectAtAngle(GameObject _slashEffect, int _effectAngle, Transform _attackTransform)
         {
@@ -296,21 +324,27 @@ using UnityEngine;
 
     public void TakeDamage(float _damage)
     {
-        health -= Mathf.RoundToInt(_damage);
+        Health -= Mathf.RoundToInt(_damage);
         StartCoroutine(StopTakingDamage());
     }
     IEnumerator StopTakingDamage()
     {
         playerState.invincible = true;
         animator.SetTrigger("TakeDamage");
-        ClampHealth();
         yield return new WaitForSeconds(1.5f);// tg bất chỉ định
         playerState.invincible = false;
     }
 
-    void ClampHealth()
+    public int Health
     {
-        health = Mathf.Clamp(health, 0, maxHealth);
+        get { return health; }
+        set
+        {
+            if (health != value)
+            {
+                health = Mathf.Clamp(value, 0, maxHealth);
+            }
+        }
     }
 
     public bool Grounded()
