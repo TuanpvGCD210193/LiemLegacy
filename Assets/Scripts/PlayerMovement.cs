@@ -38,6 +38,9 @@ using UnityEngine;
         [SerializeField] float damage;
         [SerializeField] GameObject slashEffect;
 
+        bool restoreTime;
+        float restoreTimeSpeed;
+
         [Header("Player Attack recoil")]
         [SerializeField] private float recoilXSteps = 5;
         [SerializeField] private float recoilYSteps = 5;
@@ -48,6 +51,13 @@ using UnityEngine;
         [Header("Player Health Point setting")]
         public int health;
         public int maxHealth;
+        [SerializeField] GameObject bloodSpurt;
+        [SerializeField] float hitFlashSpeed;
+        public delegate void OnHealthChangedDelegate();
+        [HideInInspector] public OnHealthChangedDelegate onHealthChangedCallback;
+
+        float healTimer;
+        [SerializeField] float timeToHeal;
 
         private float xAxis;
         private float yAxis;
@@ -57,8 +67,9 @@ using UnityEngine;
         private float gravity;
         private bool canDash = true;
         private bool dashed;
-        
-        
+        private SpriteRenderer sr;
+
+
 
         public static PlayerMovement Instance;
 
@@ -82,8 +93,8 @@ using UnityEngine;
             rb = GetComponent<Rigidbody2D>();
             animator = GetComponent<Animator>();
             gravity = rb.gravityScale;
-
-        }
+            sr = GetComponent<SpriteRenderer>();
+    }
 
         private void OnDrawGizmos()
         {
@@ -98,13 +109,20 @@ using UnityEngine;
         {
             GetInputs();
             UpdateJumpVariables();
+
             if(playerState.dashing) return;
+            RestoreTimeScale();
+            FlashWhileInvincible();
             Move();
+            Heal();
             jump();
+
             PlayerFlip();
             StartDash();
             Attack();
             //Recoil();
+            
+            
         }
 
         private void FixedUpdate()
@@ -181,8 +199,8 @@ using UnityEngine;
             //    Hitbox(DownAttackTransform, DownAttackArea, , ref playerState.recoilingY, recoilYSpeed);
             //    SlashEffectAtAngle(slashEffect, -90, DownAttackTransform);
             //}
+            }
         }
-    }
 
         private void Hitbox(Transform _attackTransform, Vector2 _attackArea, ref bool _recoilDir, float _recoilStrength)
         {
@@ -330,9 +348,54 @@ using UnityEngine;
     IEnumerator StopTakingDamage()
     {
         playerState.invincible = true;
+        GameObject _bloodSpurtParticles = Instantiate(bloodSpurt, transform.position, Quaternion.identity);
+        Destroy(_bloodSpurtParticles, 1.5f);
         animator.SetTrigger("TakeDamage");
         yield return new WaitForSeconds(1.5f);// tg bất chỉ định
         playerState.invincible = false;
+    }
+
+    void FlashWhileInvincible()
+    {
+        sr.material.color = playerState.invincible ? Color.Lerp
+            (Color.white, Color.black, Mathf.PingPong(Time.time * hitFlashSpeed, 1.0f)) : Color.white;
+    }
+
+    void RestoreTimeScale()
+    {
+        if (restoreTime)
+        {
+            if (Time.timeScale < 1)
+            {
+                Time.timeScale += Time.unscaledDeltaTime * restoreTimeSpeed;
+            }
+            else
+            {
+                Time.timeScale = 1;
+                restoreTime = false;
+            }
+        }
+    }
+
+    public void HitStopTime(float _newTimeScale, int _restoreSpeed, float _delay)
+    {
+        restoreTimeSpeed = _restoreSpeed;
+        if (_delay > 0)
+        {
+            StopCoroutine(StartTimeAgain(_delay));
+            StartCoroutine(StartTimeAgain(_delay));
+        }
+        else
+        {
+            restoreTime = true;
+        }
+        Time.timeScale = _newTimeScale;
+    }
+
+    IEnumerator StartTimeAgain(float _delay)
+    {
+        yield return new WaitForSecondsRealtime(_delay);
+        restoreTime = true;
     }
 
     public int Health
@@ -343,7 +406,35 @@ using UnityEngine;
             if (health != value)
             {
                 health = Mathf.Clamp(value, 0, maxHealth);
+
+                if (onHealthChangedCallback != null)
+                {
+                    onHealthChangedCallback.Invoke();
+                }
             }
+        }
+    }
+
+    void Heal()
+    {
+        if (Input.GetButton("Healing") && Health < maxHealth && Grounded() && !playerState.dashing) // Khi player nhan roi thi se heal
+        {
+            playerState.healing = true;
+            animator.SetBool("Healing", true);
+
+            //healing
+            healTimer += Time.deltaTime;
+            if (healTimer >= timeToHeal)
+            {
+                Health++;
+                healTimer = 0;
+            }
+        }
+        else
+        {
+            playerState.healing = false;
+            animator.SetBool("Healing", false);
+            healTimer = 0;
         }
     }
 
