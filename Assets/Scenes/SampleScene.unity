@@ -328,15 +328,18 @@ MonoBehaviour:
     m_Bits: 64
   damage: 2
   slashEffect: {fileID: 3360240373237962358, guid: 3bc459e8a7072d54b87d31766ca116a7, type: 3}
-  recoilXSteps: 5
-  recoilYSteps: 5
-  recoilXSpeed: 100
+  recoilXSteps: 10
+  recoilYSteps: 10
+  recoilXSpeed: 500
   recoilYSpeed: 100
-  health: 5
-  maxHealth: 5
+  health: 10
+  maxHealth: 10
   bloodSpurt: {fileID: 3824608301138951699, guid: 50d22bde3ac94d44b8056b9123fbb9d7, type: 3}
   hitFlashSpeed: 10
   timeToHeal: 1
+  mana: 0
+  manaDrainSpeed: 0.2
+  manaGain: 0.3
   playerState: {fileID: 0}
 --- !u!95 &299696130
 Animator:
@@ -376,7 +379,7 @@ MonoBehaviour:
   dashing: 0
   recoilingX: 0
   recoilingY: 0
-  lookingRight: 1
+  lookingRight: 0
   invincible: 0
   healing: 0
 --- !u!1 &519420028
@@ -658,12 +661,11 @@ GameObject:
   - component: {fileID: 779359595}
   - component: {fileID: 779359594}
   - component: {fileID: 779359598}
-  - component: {fileID: 779359597}
   - component: {fileID: 779359599}
   - component: {fileID: 779359600}
   m_Layer: 6
   m_Name: Enemy
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -738,52 +740,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!61 &779359597
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 779359593}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_ForceSendLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ForceReceiveLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ContactCaptureLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_CallbackLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_CompositeOperation: 0
-  m_CompositeOrder: 0
-  m_Offset: {x: 0.0043802857, y: -0.032011032}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1, y: 1}
-    newSize: {x: 1, y: 1}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  m_Size: {x: 0.78098285, y: 0.9376515}
-  m_EdgeRadius: 0
 --- !u!50 &779359598
 Rigidbody2D:
   serializedVersion: 5
@@ -823,7 +779,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0ab3091179c3dea4394a95a21d245714, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 10
+  health: 5
   recoilLength: 2
   recoilFactor: 10
   isRecoiling: 0
@@ -860,7 +816,7 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
@@ -1466,7 +1422,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -44, y: 242}
+  m_AnchoredPosition: {x: -74, y: 207}
   m_SizeDelta: {x: 500, y: 70}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1819399566

@@ -59,6 +59,11 @@ using UnityEngine;
         float healTimer;
         [SerializeField] float timeToHeal;
 
+        [Header("Player Mana Settings")]
+        [SerializeField] float mana;
+        [SerializeField] float manaDrainSpeed;
+        [SerializeField] float manaGain;
+
         private float xAxis;
         private float yAxis;
         private Rigidbody2D rb;
@@ -94,7 +99,8 @@ using UnityEngine;
             animator = GetComponent<Animator>();
             gravity = rb.gravityScale;
             sr = GetComponent<SpriteRenderer>();
-    }
+            Mana = mana;
+        }
 
         private void OnDrawGizmos()
         {
@@ -174,153 +180,86 @@ using UnityEngine;
             yield return new WaitForSeconds(dashCoolDown);
             canDash = true;
         }
-        
-        void Attack()
-        {
-            timeSinceAttack += Time.deltaTime;
-            if( attack && timeSinceAttack >= timeBetweenAttack)
-            {
-                timeSinceAttack = 0;
-                animator.SetTrigger("Attacking");
-                if (yAxis == 0 || yAxis < 0 && Grounded())
-                {
-                        Hitbox(SideAttackTransform, SideAttackArea, ref playerState.recoilingX, recoilXSpeed);
-                        Instantiate(slashEffect, SideAttackTransform);
 
-                }
-                else if (yAxis > 0)
+    void Attack()
+    {
+        timeSinceAttack += Time.deltaTime;
+        if (attack && timeSinceAttack >= timeBetweenAttack)
+        {
+            timeSinceAttack = 0;
+            animator.SetTrigger("Attacking");
+
+            if (yAxis == 0 || (yAxis < 0 && Grounded()))
+            {
+                if (Hitbox(SideAttackTransform, SideAttackArea, ref playerState.recoilingX, recoilXSpeed))
                 {
-                    Hitbox(UpAttackTransform, UpAttackArea, ref playerState.recoilingY, recoilYSpeed);
+                    Instantiate(slashEffect, SideAttackTransform);
+                }
+            }
+            else if (yAxis > 0)
+            {
+                if (Hitbox(UpAttackTransform, UpAttackArea, ref playerState.recoilingY, recoilYSpeed))
+                {
                     SlashEffectAtAngle(slashEffect, 80, UpAttackTransform);
                 }
-            //else if (yAxis < 0 && !Grounded())
-            //{
-            //    Debug.Log("Down Attack Activated!");
-            //    Hitbox(DownAttackTransform, DownAttackArea, , ref playerState.recoilingY, recoilYSpeed);
-            //    SlashEffectAtAngle(slashEffect, -90, DownAttackTransform);
-            //}
             }
         }
+    }
 
-        private void Hitbox(Transform _attackTransform, Vector2 _attackArea, ref bool _recoilDir, float _recoilStrength)
+    private bool Hitbox(Transform _attackTransform, Vector2 _attackArea, ref bool _recoilDir, float _recoilStrength)
+    {
+        Collider2D[] objectsToHit = Physics2D.OverlapBoxAll(_attackTransform.position, _attackArea, 0, attackableLayer);
+        List<Enemy> hitEnemies = new List<Enemy>();
+
+        bool hitSomething = false;
+
+        foreach (Collider2D obj in objectsToHit)
         {
-        //Collider2D[] objectsToHit = Physics2D.OverlapBoxAll(_attackTransform.position, _attackArea, 0, attackableLayer);
-
-        //if (objectsToHit.Length > 0)
-        //{
-        //    _recoilDir = true;
-        //}
-
-        //for (int i = 0; i < objectsToHit.Length; i++)
-        //{
-        //    if (objectsToHit[i].GetComponent<Enemy>() != null)
-        //    {
-        //        objectsToHit[i].GetComponent<Enemy>().EnemyHit
-        //        (damage, (transform.position - objectsToHit[i].transform.position).normalized, _recoilStrength);
-        //    }
-
-        //}
-
-        //Collider2D[] objectsToHit = Physics2D.OverlapBoxAll(_attackTransform.position, _attackArea, 0, attackableLayer);
-
-        //bool hitSomething = false;
-
-        //for (int i = 0; i < objectsToHit.Length; i++)
-        //{
-        //    Enemy enemy = objectsToHit[i].GetComponent<Enemy>();
-        //    if (enemy != null)
-        //    {
-        //        hitSomething = true; // Chỉ recoil nếu thực sự đánh trúng enemy
-        //        enemy.EnemyHit(damage, (transform.position - objectsToHit[i].transform.position).normalized, _recoilStrength);
-        //    }
-        //}
-
-        //if (hitSomething)
-        //{
-        //    _recoilDir = true;
-        //}
-            Collider2D[] objectsToHit = Physics2D.OverlapBoxAll(_attackTransform.position, _attackArea, 0, attackableLayer);
-
-            bool hitSomething = false;
-            HashSet<Enemy> hitEnemies = new HashSet<Enemy>();
-
-            for (int i = 0; i < objectsToHit.Length; i++)
+            Enemy e = obj.GetComponent<Enemy>();
+            if (e && !hitEnemies.Contains(e))
             {
-                Enemy enemy = objectsToHit[i].GetComponent<Enemy>();
-                if (enemy != null && !hitEnemies.Contains(enemy))
+                Vector2 recoilDirection = (transform.position - e.transform.position).normalized;
+                e.EnemyHit(damage, recoilDirection, _recoilStrength);
+                hitEnemies.Add(e);
+
+                _recoilDir = true; // Chỉ recoil khi đánh trúng enemy
+                rb.linearVelocity = recoilDirection * _recoilStrength; // Recoil theo hướng ngược lại
+
+                if (obj.CompareTag("Enemy"))
                 {
-                    hitSomething = true;
-                    hitEnemies.Add(enemy);
-                    enemy.EnemyHit(damage, (transform.position - objectsToHit[i].transform.position).normalized, _recoilStrength);
+                    Mana += manaGain;
                 }
-            }
 
-            if (hitSomething)
-            {
-                _recoilDir = true;
+                hitSomething = true;
             }
         }
 
-        void SlashEffectAtAngle(GameObject _slashEffect, int _effectAngle, Transform _attackTransform)
-        {
-            _slashEffect = Instantiate(_slashEffect, _attackTransform);
-            _slashEffect.transform.eulerAngles = new Vector3(0, 0, _effectAngle);
-            _slashEffect.transform.localScale = new Vector2(transform.localScale.x, transform.localScale.y);
-        }
+        return hitSomething;
+    }
 
     void Recoil()
     {
         if (playerState.recoilingX)
         {
-            if (playerState.lookingRight)
+            stepsXRecoiled++;
+            if (stepsXRecoiled >= recoilXSteps)
             {
-                rb.linearVelocity = new Vector2(-recoilXSpeed, 0);
+                StopRecoilX();
             }
-            else
-            {
-                rb.linearVelocity = new Vector2(recoilXSpeed, 0);
-            }
-
-            //if (playerState.recoilingX)
-            //{
-            //    rb.linearVelocity = new Vector2(-transform.localScale.x * recoilXSpeed, 0);
-            //}
         }
 
         if (playerState.recoilingY)
         {
             rb.gravityScale = 0;
-            if (yAxis < 0)
+            stepsYRecoiled++;
+            if (stepsYRecoiled >= recoilYSteps)
             {
-                rb.linearVelocity = new Vector2(rb.linearVelocity.x, recoilYSpeed);
+                StopRecoilY();
             }
-            else
-            {
-                rb.linearVelocity = new Vector2(rb.linearVelocity.x, -recoilYSpeed);
-            }
-            airJumpCounter = 0;
         }
         else
         {
             rb.gravityScale = gravity;
-        }
-
-        //stop recoil
-        if (playerState.recoilingX && stepsXRecoiled < recoilXSteps)
-        {
-            stepsXRecoiled++;
-        }
-        else
-        {
-            StopRecoilX();
-        }
-        if (playerState.recoilingY && stepsYRecoiled < recoilYSteps)
-        {
-            stepsYRecoiled++;
-        }
-        else
-        {
-            StopRecoilY();
         }
 
         if (Grounded())
@@ -339,6 +278,13 @@ using UnityEngine;
         stepsYRecoiled = 0;
         playerState.recoilingY = false;
     }
+
+    void SlashEffectAtAngle(GameObject _slashEffect, int _effectAngle, Transform _attackTransform)
+        {
+            _slashEffect = Instantiate(_slashEffect, _attackTransform);
+            _slashEffect.transform.eulerAngles = new Vector3(0, 0, _effectAngle);
+            _slashEffect.transform.localScale = new Vector2(transform.localScale.x, transform.localScale.y);
+        }
 
     public void TakeDamage(float _damage)
     {
@@ -417,7 +363,7 @@ using UnityEngine;
 
     void Heal()
     {
-        if (Input.GetButton("Healing") && Health < maxHealth && Grounded() && !playerState.dashing) // Khi player nhan roi thi se heal
+        if (Input.GetButton("Healing") && Health < maxHealth && Grounded() && Mana > 0 && !playerState.dashing) 
         {
             playerState.healing = true;
             animator.SetBool("Healing", true);
@@ -429,12 +375,26 @@ using UnityEngine;
                 Health++;
                 healTimer = 0;
             }
+            Mana -= Time.deltaTime * manaDrainSpeed; 
         }
         else
         {
             playerState.healing = false;
             animator.SetBool("Healing", false);
             healTimer = 0;
+        }
+    }
+
+    float Mana
+    {
+        get { return mana; }
+        set
+        {
+            if (mana != value)
+            {
+                mana = Mathf.Clamp(value, 0, 1);
+
+            }
         }
     }
 

@@ -58,12 +58,12 @@ public class Enemy : MonoBehaviour
         }
     }
 
-    protected void OnTriggerStay2D(Collider2D _other)
+    protected void OnCollisionStay2D(Collision2D _other)
     {
-        if (_other.CompareTag("Player") && !PlayerMovement.Instance.playerState.invincible)
+        if (_other.gameObject.CompareTag("Player") && !PlayerMovement.Instance.playerState.invincible)
         {
             Attack();
-            PlayerMovement.Instance.HitStopTime(0, 5, 0.5f); 
+            PlayerMovement.Instance.HitStopTime(0, 5, 0.5f);
         }
     }
     protected virtual void Attack()
