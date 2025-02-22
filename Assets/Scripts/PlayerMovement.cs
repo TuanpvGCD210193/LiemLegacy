@@ -1,6 +1,7 @@
 ﻿    using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
     public class PlayerMovement : MonoBehaviour
     {
@@ -60,9 +61,22 @@ using UnityEngine;
         [SerializeField] float timeToHeal;
 
         [Header("Player Mana Settings")]
+        [SerializeField] UnityEngine.UI.Image manaStorage;
         [SerializeField] float mana;
         [SerializeField] float manaDrainSpeed;
         [SerializeField] float manaGain;
+
+        [Header("Spell Settings")]
+        //spell stats
+        [SerializeField] float manaSpellCost = 0.3f;
+        [SerializeField] float timeBetweenCast = 0.5f;
+        float timeSinceCast;
+        [SerializeField] float spellDamage; 
+        [SerializeField] float downSpellForce; 
+        //spell cast objects
+        [SerializeField] GameObject sideSpellFireball;
+        [SerializeField] GameObject upSpellExplosion;
+        [SerializeField] GameObject downSpellFireball;
 
         private float xAxis;
         private float yAxis;
@@ -100,6 +114,7 @@ using UnityEngine;
             gravity = rb.gravityScale;
             sr = GetComponent<SpriteRenderer>();
             Mana = mana;
+            manaStorage.fillAmount = Mana;
         }
 
         private void OnDrawGizmos()
@@ -121,17 +136,25 @@ using UnityEngine;
             FlashWhileInvincible();
             Move();
             Heal();
+            CastSpell();
             jump();
 
             PlayerFlip();
             StartDash();
             Attack();
             //Recoil();
-            
-            
+
         }
 
-        private void FixedUpdate()
+    private void OnTriggerEnter2D(Collider2D _other) //for up and down cast spell
+    {
+        if (_other.GetComponent<Enemy>() != null && playerState.casting)
+        {
+            _other.GetComponent<Enemy>().EnemyHit(spellDamage, (_other.transform.position - transform.position).normalized, -recoilYSpeed);
+        }
+    }
+
+    private void FixedUpdate()
         {
             if (playerState.dashing) return;
             Recoil();
@@ -393,9 +416,75 @@ using UnityEngine;
             if (mana != value)
             {
                 mana = Mathf.Clamp(value, 0, 1);
-
+                manaStorage.fillAmount = Mana;
             }
         }
+    }
+
+    void CastSpell()
+    {
+        if (Input.GetButtonDown("CastSpell") && timeSinceCast >= timeBetweenCast && Mana >= manaSpellCost)
+        {
+            playerState.casting = true;
+            timeSinceCast = 0;
+            StartCoroutine(CastCoroutine());
+        }
+        else
+        {
+            timeSinceCast += Time.deltaTime;
+        }
+
+        if(Grounded())
+        {
+            downSpellFireball.SetActive(false);
+        }
+
+        if (downSpellFireball.activeInHierarchy)
+        {
+            rb.linearVelocity += downSpellForce * Vector2.down;
+        }
+    }
+    //CastCoroutine()
+    IEnumerator CastCoroutine()
+    {
+        animator.SetBool("Casting", true);
+        yield return new WaitForSeconds(0.15f);
+
+        //side cast
+        if (yAxis == 0 || (yAxis < 0 && Grounded()))
+        {
+            GameObject _fireBall = Instantiate(sideSpellFireball, SideAttackTransform.position, Quaternion.identity);
+
+            //flip fireball
+            if (playerState.lookingRight)
+            {
+                _fireBall.transform.eulerAngles = Vector3.zero; // if facing right, fireball continues as per normal
+            }
+            else
+            {
+                _fireBall.transform.eulerAngles = new Vector2(_fireBall.transform.eulerAngles.x, 180);
+                //if not facing right, rotate the fireball 180 deg
+            }
+            playerState.recoilingX = true;
+        }
+
+        //up cast
+        else if (yAxis > 0)
+        {
+            Instantiate(upSpellExplosion, transform);
+            rb.linearVelocity = Vector2.zero;
+        }
+
+        //down cast
+        else if (yAxis < 0 && !Grounded())
+        {
+            downSpellFireball.SetActive(true);
+        }
+
+        Mana -= manaSpellCost;
+        yield return new WaitForSeconds(0.35f);
+        animator.SetBool("Casting", false);
+        playerState.casting = false;
     }
 
     public bool Grounded()
