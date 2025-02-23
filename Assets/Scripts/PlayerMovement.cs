@@ -137,13 +137,13 @@ using UnityEngine.UI;
             Move();
             Heal();
             CastSpell();
-            jump();
 
+            if (playerState.healing) return;
             PlayerFlip();
+            jump();
             StartDash();
             Attack();
-            //Recoil();
-
+            //Recoil
         }
 
     private void OnTriggerEnter2D(Collider2D _other) //for up and down cast spell
@@ -171,6 +171,7 @@ using UnityEngine.UI;
 
         private void Move()
         {
+            if (playerState.healing) rb.linearVelocity = new Vector2(0, 0);
             rb.linearVelocity = new Vector2(walkSpeed * xAxis, rb.linearVelocity.y);
             animator.SetBool("Walking", rb.linearVelocity.x != 0 && Grounded());
         }
