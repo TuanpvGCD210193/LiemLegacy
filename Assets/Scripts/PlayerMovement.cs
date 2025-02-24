@@ -9,6 +9,7 @@ using UnityEngine.UI;
         [Header("Horizontal change move settings for Player")]
         [SerializeField] private float walkSpeed = 1;
         [Header("Vertical change move settings for Player")]
+        [SerializeField] private float jumpForce = 45f; //sets how hight the player can jump
         private int jumpBufferCounter = 0;
         [SerializeField] private int jumpBufferFrames;
         private float coyoteTimeCounter = 0;
@@ -70,13 +71,15 @@ using UnityEngine.UI;
         //spell stats
         [SerializeField] float manaSpellCost = 0.3f;
         [SerializeField] float timeBetweenCast = 0.5f;
-        float timeSinceCast;
+
         [SerializeField] float spellDamage; 
         [SerializeField] float downSpellForce; 
         //spell cast objects
         [SerializeField] GameObject sideSpellFireball;
         [SerializeField] GameObject upSpellExplosion;
         [SerializeField] GameObject downSpellFireball;
+        float timeSinceCast;
+        float castOrHealTimer;
 
         private float xAxis;
         private float yAxis;
@@ -102,7 +105,8 @@ using UnityEngine.UI;
             {
                 Instance = this;
             }
-            Health = maxHealth;
+            DontDestroyOnLoad(gameObject);
+
         }
 
         // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -115,6 +119,7 @@ using UnityEngine.UI;
             sr = GetComponent<SpriteRenderer>();
             Mana = mana;
             manaStorage.fillAmount = Mana;
+            Health = maxHealth;
         }
 
         private void OnDrawGizmos()
@@ -140,7 +145,7 @@ using UnityEngine.UI;
 
             if (playerState.healing) return;
             PlayerFlip();
-            jump();
+            Jump();
             StartDash();
             Attack();
             //Recoil
@@ -165,7 +170,14 @@ using UnityEngine.UI;
             xAxis = Input.GetAxisRaw("Horizontal");
             yAxis = Input.GetAxisRaw("Vertical");
             attack = Input.GetButtonDown("Attack");
-            
+            if (Input.GetButton("Cast/Heal"))
+            {
+                castOrHealTimer += Time.deltaTime;
+            }
+            //else
+            //{
+            //    castOrHealTimer = 0;
+            //}
 
         }
 
@@ -196,7 +208,8 @@ using UnityEngine.UI;
             playerState.dashing = true;
             animator.SetTrigger("Dashing");
             rb.gravityScale = 0;
-            rb.linearVelocity = new Vector2(transform.localScale.x * dashSpeed, 0);
+            int _dir = playerState.lookingRight ? 1 : -1;
+            rb.linearVelocity = new Vector2(_dir * dashSpeed, 0);
             if (Grounded()) Instantiate(dashEffect,transform);
             yield return new WaitForSeconds(dashTime);
             rb.gravityScale = gravity;
@@ -387,7 +400,7 @@ using UnityEngine.UI;
 
     void Heal()
     {
-        if (Input.GetButton("Healing") && Health < maxHealth && Grounded() && Mana > 0 && !playerState.dashing) 
+        if (Input.GetButton("Cast/Heal") && castOrHealTimer > 0.1f && Health < maxHealth && Grounded() && Mana > 0 && !playerState.dashing) 
         {
             playerState.healing = true;
             animator.SetBool("Healing", true);
@@ -424,7 +437,8 @@ using UnityEngine.UI;
 
     void CastSpell()
     {
-        if (Input.GetButtonDown("CastSpell") && timeSinceCast >= timeBetweenCast && Mana >= manaSpellCost)
+        if (Input.GetButtonDown("CastSpell") && castOrHealTimer <= 0.1f && timeSinceCast >= timeBetweenCast && Mana >= manaSpellCost)
+        //if (Input.GetButtonUp("CastSpell") && castOrHealTimer <= 0.1f && timeSinceCast >= timeBetweenCast && Mana >= manaSpellCost)
         {
             playerState.casting = true;
             timeSinceCast = 0;
@@ -435,7 +449,12 @@ using UnityEngine.UI;
             timeSinceCast += Time.deltaTime;
         }
 
-        if(Grounded())
+        if (!Input.GetButton("Cast/Heal"))
+        {
+            castOrHealTimer = 0;
+        }
+
+        if (Grounded())
         {
             downSpellFireball.SetActive(false);
         }
@@ -503,43 +522,58 @@ using UnityEngine.UI;
             }
         }
 
-        void jump()
-        {
-            if (Input.GetButtonDown("Jump") && rb.linearVelocity.y >0)
-            {
-                rb.linearVelocity = new Vector2(rb.linearVelocity.x, 0);
-                playerState.jumping = false;
-            }
-            if (!playerState.jumping)
-            {
-                if (jumpBufferCounter >0 && coyoteTimeCounter >0)
-                {
-                    rb.linearVelocity = new Vector3(rb.linearVelocity.x, jumpHeight);
-                    playerState.jumping = true;
-                }
-                else if (!Grounded() && airJumpCounter < maxAirJump && Input.GetButtonDown("Jump"))
-                {
-                    playerState.jumping = true;
-                    airJumpCounter++;
-                    rb.linearVelocity = new Vector3(rb.linearVelocity.x, jumpHeight);
-                }
-            }
+    //void Jump()
+    //{
+    //    if (Input.GetButtonDown("Jump") && rb.linearVelocity.y >0)
+    //    {
+    //        rb.linearVelocity = new Vector2(rb.linearVelocity.x, 0);
+    //        playerState.jumping = false;
+    //    }
+    //    if (!playerState.jumping)
+    //    {
+    //        if (jumpBufferCounter >0 && coyoteTimeCounter >0)
+    //        {
+    //            rb.linearVelocity = new Vector3(rb.linearVelocity.x, jumpHeight);
+    //            playerState.jumping = true;
+    //        }
+    //        else if (!Grounded() && airJumpCounter < maxAirJump && Input.GetButtonDown("Jump"))
+    //        {
+    //            playerState.jumping = true;
+    //            airJumpCounter++;
+    //            rb.linearVelocity = new Vector3(rb.linearVelocity.x, jumpHeight);
+    //        }
+    //    }
 
-            animator.SetBool("Jumping", !Grounded());
+    //    animator.SetBool("Jumping", !Grounded());
+    //}
+
+    void Jump()
+    {
+        if (jumpBufferCounter > 0 && coyoteTimeCounter > 0 && !playerState.jumping)
+        {
+            rb.linearVelocity = new Vector3(rb.linearVelocity.x, jumpForce);
+
+            playerState.jumping = true;
         }
 
-        void PlayerFlip()
+        if (!Grounded() && airJumpCounter < maxAirJump && Input.GetButtonDown("Jump"))
         {
-            if (xAxis < 0)
-            {
-                transform.localScale = new Vector2(-1, transform.localScale.y);
+            playerState.jumping = true;
 
-            }
-            else if (xAxis > 0)
-            {
-                transform.localScale = new Vector2(1, transform.localScale.y);
-            }
+            airJumpCounter++;
+
+            rb.linearVelocity = new Vector3(rb.linearVelocity.x, jumpForce);
         }
+
+        if (Input.GetButtonUp("Jump") && rb.linearVelocity.y > 3)
+        {
+            playerState.jumping = false;
+
+            rb.linearVelocity = new Vector2(rb.linearVelocity.x, 0);
+        }
+
+        animator.SetBool("Jumping", !Grounded());
+    }
 
         void UpdateJumpVariables()
         {
@@ -561,6 +595,19 @@ using UnityEngine.UI;
             else
             {
                 jumpBufferCounter--;
+            }
+        }
+
+        void PlayerFlip()
+        {
+            if (xAxis < 0)
+            {
+                transform.localScale = new Vector2(-1, transform.localScale.y);
+
+            }
+            else if (xAxis > 0)
+            {
+                transform.localScale = new Vector2(1, transform.localScale.y);
             }
         }
     }
