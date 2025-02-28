@@ -19,12 +19,28 @@ public class HeartController : MonoBehaviour
         PlayerMovement.Instance.onHealthChangedCallback += UpdateHeartsHUD;
         InstantiateHeartContainers();
         UpdateHeartsHUD();
-    }   
-
+    }
     // Update is called once per frame
     void Update()
     {
 
+    }
+
+    void InstantiateHeartContainers()
+    {
+        for (int i = 0; i < PlayerMovement.Instance.maxHealth; i++)
+        {
+            GameObject temp = Instantiate(heartContainerPrefab);
+            temp.transform.SetParent(heartsParent, false);
+            heartContainers[i] = temp;
+            heartFills[i] = temp.transform.Find("HeartFill").GetComponent<Image>();
+        }
+    }   
+  
+    void UpdateHeartsHUD()
+    {
+        SetHeartContainers();
+        SetFilledHearts();
     }
 
     void SetHeartContainers()
@@ -42,6 +58,7 @@ public class HeartController : MonoBehaviour
         }
     }
 
+
     void SetFilledHearts()
     {
         for (int i = 0; i < heartFills.Length; i++)
@@ -55,22 +72,5 @@ public class HeartController : MonoBehaviour
                 heartFills[i].fillAmount = 0;
             }
         }
-    }
-
-    void InstantiateHeartContainers()
-    {
-        for (int i = 0; i < PlayerMovement.Instance.maxHealth; i++)
-        {
-            GameObject temp = Instantiate(heartContainerPrefab);
-            temp.transform.SetParent(heartsParent, false);
-            heartContainers[i] = temp;
-            heartFills[i] = temp.transform.Find("HeartFill").GetComponent<Image>();
-        }
-    }
-
-    void UpdateHeartsHUD()
-    {
-        SetHeartContainers();
-        SetFilledHearts();
-    }
+    } 
 }

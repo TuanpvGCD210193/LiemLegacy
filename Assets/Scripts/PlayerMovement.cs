@@ -202,21 +202,33 @@ using UnityEngine.UI;
             }
         }
 
-        IEnumerator Dash() 
-        {
-            canDash = false;
-            playerState.dashing = true;
-            animator.SetTrigger("Dashing");
-            rb.gravityScale = 0;
-            int _dir = playerState.lookingRight ? 1 : -1;
-            rb.linearVelocity = new Vector2(_dir * dashSpeed, 0);
-            if (Grounded()) Instantiate(dashEffect,transform);
-            yield return new WaitForSeconds(dashTime);
-            rb.gravityScale = gravity;
-            playerState.dashing =false;
-            yield return new WaitForSeconds(dashCoolDown);
-            canDash = true;
-        }
+    IEnumerator Dash()
+    {
+        canDash = false;
+        playerState.dashing = true;
+        animator.SetTrigger("Dashing");
+        rb.gravityScale = 0;
+
+        // Cập nhật hướng dựa trên transform
+        playerState.lookingRight = transform.localScale.x > 0;
+
+        // Tính toán hướng dash
+        int _dir = playerState.lookingRight ? 1 : -1;
+        rb.linearVelocity = new Vector2(_dir * dashSpeed, 0);
+
+        // Tạo hiệu ứng dash nếu nhân vật đứng trên mặt đất
+        if (Grounded()) Instantiate(dashEffect, transform);
+
+        yield return new WaitForSeconds(dashTime);
+
+        // Khôi phục trạng thái sau khi dash
+        rb.gravityScale = gravity;
+        playerState.dashing = false;
+
+        // Chờ thời gian cooldown trước khi dash lại
+        yield return new WaitForSeconds(dashCoolDown);
+        canDash = true;
+    }
 
     void Attack()
     {
