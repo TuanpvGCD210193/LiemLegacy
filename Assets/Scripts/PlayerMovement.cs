@@ -81,9 +81,9 @@ using UnityEngine.UI;
         float timeSinceCast;
         float castOrHealTimer;
 
-        private float xAxis;
-        private float yAxis;
-        private Rigidbody2D rb;
+        public float xAxis;
+        public float yAxis;
+        public Rigidbody2D rb;
         Animator animator;
         public PlayerStateList playerState;
         private float gravity;
@@ -95,22 +95,35 @@ using UnityEngine.UI;
 
         public static PlayerMovement Instance;
 
-        private void Awake()
+    //private void Awake()
+    //{
+    //    if (Instance != null && Instance != this)
+    //    {
+    //        Destroy(gameObject);
+    //    }
+    //    else
+    //    {
+    //        Instance = this;
+    //    }
+    //    DontDestroyOnLoad(gameObject);
+
+    //}
+
+    private void Awake()
+    {
+        if (Instance != null && Instance != this)
         {
-            if (Instance != null && Instance != this)
-            {
-                Destroy(gameObject);
-            }
-            else
-            {
-                Instance = this;
-            }
-            DontDestroyOnLoad(gameObject);
-
+            Destroy(gameObject);
         }
+        else
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+    }
 
-        // Start is called once before the first execution of Update after the MonoBehaviour is created
-        void Start()
+    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    void Start()
         {
             playerState = GetComponent<PlayerStateList>();
             rb = GetComponent<Rigidbody2D>();
@@ -133,6 +146,8 @@ using UnityEngine.UI;
         // Update is called once per frame
         void Update()
         {
+            if (playerState.cutscene) return;
+
             GetInputs();
             UpdateJumpVariables();
 
@@ -161,7 +176,7 @@ using UnityEngine.UI;
 
     private void FixedUpdate()
         {
-            if (playerState.dashing) return;
+            if (playerState.dashing || playerState.healing || playerState.cutscene) return;
             Recoil();
         }
 
@@ -228,6 +243,53 @@ using UnityEngine.UI;
         // Chờ thời gian cooldown trước khi dash lại
         yield return new WaitForSeconds(dashCoolDown);
         canDash = true;
+    }
+
+    //public IEnumerator WalkIntoNewScene(Vector2 _exitDir, float _delay)
+    //{
+    //    playerState.invincible = true;
+
+    //    //If exit direction is upwards
+    //    if (_exitDir.y > 0)
+    //    {
+    //        rb.linearVelocity = jumpForce * _exitDir;
+    //    }
+
+    //    //If exit direction requires horizontal movement
+    //    if (_exitDir.x != 0)
+    //    {
+    //        xAxis = _exitDir.x > 0 ? 1 : -1;
+    //        Move();
+    //    }
+
+    //    PlayerFlip();
+    //    yield return new WaitForSeconds(_delay);
+    //    playerState.invincible = false;
+    //    playerState.cutscene = false;
+    //}
+
+    public IEnumerator WalkIntoNewScene(Vector2 _exitDir, float _delay)
+    {
+        playerState.invincible = true;
+
+        // Di chuyển theo hướng thoát
+        if (_exitDir.y > 0)
+        {
+            rb.linearVelocity = jumpForce * _exitDir;
+        }
+
+        if (_exitDir.x != 0)
+        {
+            xAxis = _exitDir.x > 0 ? 1 : -1;
+            Move();
+        }
+
+        PlayerFlip();
+        yield return new WaitForSeconds(_delay);
+
+        // 🟢 Đảm bảo reset trạng thái
+        playerState.invincible = false;
+        playerState.cutscene = false;
     }
 
     void Attack()
@@ -534,30 +596,6 @@ using UnityEngine.UI;
             }
         }
 
-    //void Jump()
-    //{
-    //    if (Input.GetButtonDown("Jump") && rb.linearVelocity.y >0)
-    //    {
-    //        rb.linearVelocity = new Vector2(rb.linearVelocity.x, 0);
-    //        playerState.jumping = false;
-    //    }
-    //    if (!playerState.jumping)
-    //    {
-    //        if (jumpBufferCounter >0 && coyoteTimeCounter >0)
-    //        {
-    //            rb.linearVelocity = new Vector3(rb.linearVelocity.x, jumpHeight);
-    //            playerState.jumping = true;
-    //        }
-    //        else if (!Grounded() && airJumpCounter < maxAirJump && Input.GetButtonDown("Jump"))
-    //        {
-    //            playerState.jumping = true;
-    //            airJumpCounter++;
-    //            rb.linearVelocity = new Vector3(rb.linearVelocity.x, jumpHeight);
-    //        }
-    //    }
-
-    //    animator.SetBool("Jumping", !Grounded());
-    //}
 
     void Jump()
     {
