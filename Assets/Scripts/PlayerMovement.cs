@@ -93,7 +93,8 @@ using UnityEngine.UI;
 
 
 
-        public static PlayerMovement Instance;
+    //public static PlayerMovement Instance;
+    public static PlayerMovement Instance { get; private set; }
 
     //private void Awake()
     //{
@@ -109,16 +110,41 @@ using UnityEngine.UI;
 
     //}
 
+    //private void Awake()
+    //{
+    //    if (Instance != null && Instance != this)
+    //    {
+    //        Destroy(gameObject);
+    //    }
+    //    else
+    //    {
+    //        Instance = this;
+    //        DontDestroyOnLoad(gameObject);
+    //    }
+    //}
+
+    //private void Awake()
+    //{
+    //    if (Instance == null)
+    //    {
+    //        Instance = this;
+    //    }
+    //    else
+    //    {
+    //        Destroy(gameObject);
+    //    }
+    //}
+
     private void Awake()
     {
-        if (Instance != null && Instance != this)
+        if (Instance == null)
         {
-            Destroy(gameObject);
+            Instance = this;
         }
         else
         {
-            Instance = this;
-            DontDestroyOnLoad(gameObject);
+            Destroy(gameObject);
+            return;
         }
     }
 
@@ -170,7 +196,7 @@ using UnityEngine.UI;
     {
         if (_other.GetComponent<Enemy>() != null && playerState.casting)
         {
-            _other.GetComponent<Enemy>().EnemyHit(spellDamage, (_other.transform.position - transform.position).normalized, -recoilYSpeed);
+            _other.GetComponent<Enemy>().EnemyGetsHit(spellDamage, (_other.transform.position - transform.position).normalized, -recoilYSpeed);
         }
     }
 
@@ -330,7 +356,7 @@ using UnityEngine.UI;
             if (e && !hitEnemies.Contains(e))
             {
                 Vector2 recoilDirection = (transform.position - e.transform.position).normalized;
-                e.EnemyHit(damage, recoilDirection, _recoilStrength);
+                e.EnemyGetsHit(damage, recoilDirection, _recoilStrength);
                 hitEnemies.Add(e);
 
                 _recoilDir = true; // Chỉ recoil khi đánh trúng enemy

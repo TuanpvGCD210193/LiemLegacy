@@ -52,6 +52,8 @@ public class SceneTransition : MonoBehaviour
             // 🟢 Reset trạng thái để player điều khiển được
             PlayerMovement.Instance.playerState.cutscene = false;
             PlayerMovement.Instance.playerState.invincible = false;
+
+            StartCoroutine(UIManager.Instance.sceneFader.Fade(SceneFader.FadeDirection.Out));
         }
     }
 
@@ -85,11 +87,13 @@ public class SceneTransition : MonoBehaviour
             PlayerMovement.Instance.playerState.cutscene = true;
             PlayerMovement.Instance.playerState.invincible = true;
 
-            SceneManager.LoadScene(transitionTo);
+            //SceneManager.LoadScene(transitionTo);
 
             // 🟢 Đảm bảo reset ngay sau khi load
             PlayerMovement.Instance.playerState.cutscene = false;
             PlayerMovement.Instance.playerState.invincible = false;
+
+            StartCoroutine(UIManager.Instance.sceneFader.FadeAndLoadScene(SceneFader.FadeDirection.In, transitionTo));
         }
     }
 

@@ -1,0 +1,830 @@
+fileFormatVersion: 2
+guid: ed258580890ee684d906a46de9664e2f
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -8566016935703454450
+    second: Dragon_sprite_sheet_noback_0
+  - first:
+      213: 1719754349788623070
+    second: Dragon_sprite_sheet_noback_1
+  - first:
+      213: -64056551532534620
+    second: Dragon_sprite_sheet_noback_2
+  - first:
+      213: 2228978981404840691
+    second: Dragon_sprite_sheet_noback_3
+  - first:
+      213: 135053671388205457
+    second: Dragon_sprite_sheet_noback_4
+  - first:
+      213: 114906812798924976
+    second: Dragon_sprite_sheet_noback_5
+  - first:
+      213: 7628736537058795989
+    second: Dragon_sprite_sheet_noback_6
+  - first:
+      213: -2173195540582485457
+    second: Dragon_sprite_sheet_noback_7
+  - first:
+      213: -59794648706547084
+    second: Dragon_sprite_sheet_noback_8
+  - first:
+      213: -6425891690764832297
+    second: Dragon_sprite_sheet_noback_9
+  - first:
+      213: 9050685118736833440
+    second: Dragon_sprite_sheet_noback_10
+  - first:
+      213: -3303604113516090717
+    second: Dragon_sprite_sheet_noback_11
+  - first:
+      213: 4720970094759642846
+    second: Dragon_sprite_sheet_noback_12
+  - first:
+      213: 1333951620796853024
+    second: Dragon_sprite_sheet_noback_13
+  - first:
+      213: -1516856042371757472
+    second: Dragon_sprite_sheet_noback_14
+  - first:
+      213: 6238406592029541649
+    second: Dragon_sprite_sheet_noback_15
+  - first:
+      213: 6556380113617899009
+    second: Dragon_sprite_sheet_noback_16
+  - first:
+      213: -586977997636915630
+    second: Dragon_sprite_sheet_noback_17
+  - first:
+      213: 5757160335464711174
+    second: Dragon_sprite_sheet_noback_18
+  - first:
+      213: -7698789464353567497
+    second: Dragon_sprite_sheet_noback_19
+  - first:
+      213: -4746181009911466990
+    second: Dragon_sprite_sheet_noback_20
+  - first:
+      213: 4485726750864659802
+    second: Dragon_sprite_sheet_noback_21
+  - first:
+      213: 3396884012176305660
+    second: Dragon_sprite_sheet_noback_22
+  - first:
+      213: -3186518316367420754
+    second: Dragon_sprite_sheet_noback_23
+  - first:
+      213: 7155745679695040536
+    second: Dragon_sprite_sheet_noback_24
+  - first:
+      213: -7628088686606253581
+    second: Dragon_sprite_sheet_noback_25
+  - first:
+      213: -4185468262456766546
+    second: Dragon_sprite_sheet_noback_26
+  - first:
+      213: -6957682782708221570
+    second: Dragon_sprite_sheet_noback_27
+  - first:
+      213: 5258566753594309220
+    second: Dragon_sprite_sheet_noback_28
+  - first:
+      213: -675945093833663551
+    second: Dragon_sprite_sheet_noback_29
+  - first:
+      213: -8941433476111689213
+    second: Dragon_sprite_sheet_noback_30
+  - first:
+      213: 1605619033967929471
+    second: Dragon_sprite_sheet_noback_31
+  - first:
+      213: 77778184709815971
+    second: Dragon_sprite_sheet_noback_32
+  - first:
+      213: -8820490039576911589
+    second: Dragon_sprite_sheet_noback_33
+  - first:
+      213: 9208386558559576655
+    second: Dragon_sprite_sheet_noback_34
+  - first:
+      213: -6568015819883833587
+    second: Dragon_sprite_sheet_noback_35
+  - first:
+      213: -8299763975274444663
+    second: Dragon_sprite_sheet_noback_36
+  - first:
+      213: -5998450449722827409
+    second: Dragon_sprite_sheet_noback_37
+  - first:
+      213: 4742392705385048336
+    second: Dragon_sprite_sheet_noback_38
+  - first:
+      213: -7443011039428176662
+    second: Dragon_sprite_sheet_noback_39
+  - first:
+      213: 3461437466187647569
+    second: Dragon_sprite_sheet_noback_40
+  - first:
+      213: 226729670278204355
+    second: Dragon_sprite_sheet_noback_41
+  - first:
+      213: 8434010215309312310
+    second: Dragon_sprite_sheet_noback_42
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 4096
+    resizeAlgorithm: 1
+    textureFormat: -1
+    textureCompression: 2
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Dragon_sprite_sheet_noback_0
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 13
+        width: 51
+        height: 57
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 83af90b3de0418c4a8821cb6c30a3d5f
+      internalID: 1367829443
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Dragon_sprite_sheet_noback_1
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 13
+        width: 50
+        height: 55
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 36cea40ec531dac48849fe4ff343b21b
+      internalID: -908926828
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Dragon_sprite_sheet_noback_2
+      rect:
+        serializedVersion: 2
+        x: 436
+        y: 13
+        width: 50
+        height: 55
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 67be78d2c55fe414499bfbfe0d3662d5
+      internalID: -150801402
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Dragon_sprite_sheet_noback_3
+      rect:
+        serializedVersion: 2
+        x: 497
+        y: 13
+        width: 51
+        height: 57
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: eea435be1d5352a4fa2c8aaa2a71eaf3
+      internalID: 1426425606
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Dragon_sprite_sheet_noback_4
+      rect:
+        serializedVersion: 2
+        x: 870
+        y: 14
+        width: 49
+        height: 55
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3b0b114e9a3550c428ee6d2dfb0f78f3
+      internalID: -822214933
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Dragon_sprite_sheet_noback_5
+      rect:
+        serializedVersion: 2
+        x: 1243
+        y: 19
+        width: 57
+        height: 49
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d2fc5dc716a895a4aa581a01ab8e9641
+      internalID: 816823040
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Dragon_sprite_sheet_noback_10
+      rect:
+        serializedVersion: 2
+        x: 135
+        y: 14
+        width: 41
+        height: 45
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2ea166f86e7419d4e85febc65f15ce1f
+      internalID: 1254743311
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Dragon_sprite_sheet_noback_11
+      rect:
+        serializedVersion: 2
+        x: 204
+        y: 15
+        width: 34
+        height: 42
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 438bc452b3519a74c84e0de479bfc58e
+      internalID: 1699112068
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Dragon_sprite_sheet_noback_12
+      rect:
+        serializedVersion: 2
+        x: 267
+        y: 14
+        width: 33
+        height: 43
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3e3f546363f3cd645b138f098cabcac6
+      internalID: 1133622112
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Dragon_sprite_sheet_noback_13
+      rect:
+        serializedVersion: 2
+        x: 328
+        y: 15
+        width: 34
+        height: 42
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f083bdd9fbd6daf4ab2f57096452f8bd
+      internalID: 780879288
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Dragon_sprite_sheet_noback_14
+      rect:
+        serializedVersion: 2
+        x: 383
+        y: 14
+        width: 41
+        height: 44
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0c6e5b13bc4b2994f9e2c43d80c7be23
+      internalID: 1883464024
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Dragon_sprite_sheet_noback_15
+      rect:
+        serializedVersion: 2
+        x: 562
+        y: 22
+        width: 51
+        height: 43
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 127fcc77d12c84047965bf08b567210c
+      internalID: -138948512
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Dragon_sprite_sheet_noback_16
+      rect:
+        serializedVersion: 2
+        x: 810
+        y: 22
+        width: 51
+        height: 42
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c4e74b27d2d173a43bb5f9f3913156a7
+      internalID: -1928651089
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Dragon_sprite_sheet_noback_17
+      rect:
+        serializedVersion: 2
+        x: 1121
+        y: 25
+        width: 51
+        height: 33
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6fb0646ed50caac40a51a4d9136884b2
+      internalID: 1868482314
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Dragon_sprite_sheet_noback_18
+      rect:
+        serializedVersion: 2
+        x: 1181
+        y: 19
+        width: 53
+        height: 45
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c96921d4620104a40a1c00bd6e5d2864
+      internalID: 1000952476
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Dragon_sprite_sheet_noback_20
+      rect:
+        serializedVersion: 2
+        x: 1307
+        y: 14
+        width: 57
+        height: 57
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: df769c1c54250c64eba2d9a72c4d1f05
+      internalID: 1001171816
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Dragon_sprite_sheet_noback_24
+      rect:
+        serializedVersion: 2
+        x: 623
+        y: 30
+        width: 52
+        height: 20
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e5a2f7b705dceb64789f4d6c4e7879dd
+      internalID: -963480031
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Dragon_sprite_sheet_noback_25
+      rect:
+        serializedVersion: 2
+        x: 687
+        y: 31
+        width: 51
+        height: 23
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e455f971fddeaeb4894178b2e8350cd3
+      internalID: 161561767
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Dragon_sprite_sheet_noback_26
+      rect:
+        serializedVersion: 2
+        x: 747
+        y: 30
+        width: 52
+        height: 20
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 76792bae49dfef345999c2df307fc144
+      internalID: 1515442173
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Dragon_sprite_sheet_noback_27
+      rect:
+        serializedVersion: 2
+        x: 935
+        y: 31
+        width: 51
+        height: 23
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fa438eafb83e0284aa2d6d032fe2e231
+      internalID: 1217025544
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Dragon_sprite_sheet_noback_28
+      rect:
+        serializedVersion: 2
+        x: 997
+        y: 31
+        width: 51
+        height: 23
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ee5d0fffac9070f4194869a81c3d73d9
+      internalID: 1883805400
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Dragon_sprite_sheet_noback_29
+      rect:
+        serializedVersion: 2
+        x: 1059
+        y: 31
+        width: 51
+        height: 23
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b175ef6ae13140e48b1aa9b29c500a4c
+      internalID: 1248031544
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Dragon_sprite_sheet_noback_34
+      rect:
+        serializedVersion: 2
+        x: 1425
+        y: 10
+        width: 63
+        height: 60
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7ecab7a6286667f40bc57832029784e1
+      internalID: -1589935887
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Dragon_sprite_sheet_noback_38
+      rect:
+        serializedVersion: 2
+        x: 1366
+        y: 15
+        width: 56
+        height: 56
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9b88ac44b7e103d499d961967d165a1e
+      internalID: 1385072452
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: c86cf6ea2f88e6e4694e1681452c843e
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      Dragon_sprite_sheet_noback_0: 1367829443
+      Dragon_sprite_sheet_noback_1: -908926828
+      Dragon_sprite_sheet_noback_10: 1254743311
+      Dragon_sprite_sheet_noback_11: 1699112068
+      Dragon_sprite_sheet_noback_12: 1133622112
+      Dragon_sprite_sheet_noback_13: 780879288
+      Dragon_sprite_sheet_noback_14: 1883464024
+      Dragon_sprite_sheet_noback_15: -138948512
+      Dragon_sprite_sheet_noback_16: -1928651089
+      Dragon_sprite_sheet_noback_17: 1868482314
+      Dragon_sprite_sheet_noback_18: 1000952476
+      Dragon_sprite_sheet_noback_19: -1271239904
+      Dragon_sprite_sheet_noback_2: -150801402
+      Dragon_sprite_sheet_noback_20: 1001171816
+      Dragon_sprite_sheet_noback_21: -1168416783
+      Dragon_sprite_sheet_noback_22: -1792646270
+      Dragon_sprite_sheet_noback_23: -796279777
+      Dragon_sprite_sheet_noback_24: -963480031
+      Dragon_sprite_sheet_noback_25: 161561767
+      Dragon_sprite_sheet_noback_26: 1515442173
+      Dragon_sprite_sheet_noback_27: 1217025544
+      Dragon_sprite_sheet_noback_28: 1883805400
+      Dragon_sprite_sheet_noback_29: 1248031544
+      Dragon_sprite_sheet_noback_3: 1426425606
+      Dragon_sprite_sheet_noback_30: 688331297
+      Dragon_sprite_sheet_noback_31: 266744118
+      Dragon_sprite_sheet_noback_32: -1479866018
+      Dragon_sprite_sheet_noback_33: -1530382083
+      Dragon_sprite_sheet_noback_34: -1589935887
+      Dragon_sprite_sheet_noback_35: 1298832903
+      Dragon_sprite_sheet_noback_36: 366783917
+      Dragon_sprite_sheet_noback_37: -1357475477
+      Dragon_sprite_sheet_noback_38: 1385072452
+      Dragon_sprite_sheet_noback_39: 1168070
+      Dragon_sprite_sheet_noback_4: -822214933
+      Dragon_sprite_sheet_noback_40: -2024191554
+      Dragon_sprite_sheet_noback_41: 1198711037
+      Dragon_sprite_sheet_noback_42: 750749257
+      Dragon_sprite_sheet_noback_5: 816823040
+      Dragon_sprite_sheet_noback_6: -1527210164
+      Dragon_sprite_sheet_noback_7: -689534593
+      Dragon_sprite_sheet_noback_8: 1800244675
+      Dragon_sprite_sheet_noback_9: -499030967
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

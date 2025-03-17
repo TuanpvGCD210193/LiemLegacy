@@ -1,4 +1,4 @@
-using Unity.VisualScripting.Antlr3.Runtime.Tree;
+﻿using Unity.VisualScripting.Antlr3.Runtime.Tree;
 using UnityEngine;
 
 public class Enemy : MonoBehaviour
@@ -21,15 +21,37 @@ public class Enemy : MonoBehaviour
         //rb = GetComponent<Rigidbody2D>();
     }
 
-    protected  virtual void Awake()
+
+
+    //protected virtual void Awake()
+    //{
+    //    rb = GetComponent<Rigidbody2D>();
+    //    player = PlayerMovement.Instance;
+    //}
+    protected virtual void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
         player = PlayerMovement.Instance;
+        if (player == null)
+        {
+            Debug.LogError(" Player instance is NULL in Enemy script!");
+        }
     }
+
+
+
+    protected enum EnemyStates
+    {
+        //Crawler
+        Crawler_Idle,
+        Crawler_Flip,
+    }
+    protected EnemyStates currentEnemyState;
 
     // Update is called once per frame
     protected virtual void Update()
     {
+
         if (health <= 0)
         {
             Destroy(gameObject);
@@ -46,9 +68,14 @@ public class Enemy : MonoBehaviour
                 recoilTimer = 0;
             }
         }
+
+        else
+        {
+            UpdateEnemyStates();
+        }
     }
 
-    public virtual void EnemyHit(float _damageDone, Vector2 _hitDirection, float _hitForce)
+    public virtual void EnemyGetsHit(float _damageDone, Vector2 _hitDirection, float _hitForce)
     {
         health -= _damageDone;
         if (!isRecoiling)
@@ -65,6 +92,13 @@ public class Enemy : MonoBehaviour
             Attack();
             PlayerMovement.Instance.HitStopTime(0, 5, 0.5f);
         }
+    }
+
+    protected virtual void UpdateEnemyStates() { }
+
+    protected void ChangeState(EnemyStates _newState)
+    {
+        currentEnemyState = _newState;
     }
     protected virtual void Attack()
     {
