@@ -1236,7 +1236,7 @@ GameObject:
   - component: {fileID: 103137071}
   - component: {fileID: 103137073}
   - component: {fileID: 103137072}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: "Tr\u1EA7n nh\xE0 (10)"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1504,7 +1504,7 @@ GameObject:
   - component: {fileID: 129705007}
   - component: {fileID: 129705009}
   - component: {fileID: 129705008}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: "Tr\u1EA7n nh\xE0 (5)"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1560,7 +1560,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0, y: -0.86606294}
   m_SpriteTilingProperty:
     border: {x: 1.53125, y: 0, z: 2.3125, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -1570,7 +1570,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 11.96875, y: 4.09375}
+  m_Size: {x: 11.96875, y: 2.3616242}
   m_EdgeRadius: 0
 --- !u!212 &129705009
 SpriteRenderer:
@@ -1669,7 +1669,7 @@ GameObject:
   - component: {fileID: 145239366}
   - component: {fileID: 145239368}
   - component: {fileID: 145239367}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: "Tr\u1EA7n nh\xE0 (14)"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2071,7 +2071,7 @@ GameObject:
   - component: {fileID: 164942819}
   - component: {fileID: 164942818}
   - component: {fileID: 164942817}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Crystal platform_3 (6)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2741,7 +2741,7 @@ GameObject:
   - component: {fileID: 221779812}
   - component: {fileID: 221779811}
   - component: {fileID: 221779810}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Crystal platform_3 (20)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2858,7 +2858,7 @@ Transform:
   m_GameObject: {fileID: 221779809}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 34.07043, y: 95.1509, z: 0.013626287}
+  m_LocalPosition: {x: 33.89, y: 93.79, z: 0.013626287}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3657,7 +3657,7 @@ GameObject:
   - component: {fileID: 261054966}
   - component: {fileID: 261054968}
   - component: {fileID: 261054967}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: "Tr\u1EA7n nh\xE0 (11)"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4003,7 +4003,7 @@ GameObject:
   - component: {fileID: 307934874}
   - component: {fileID: 307934873}
   - component: {fileID: 307934872}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Crystal platform_3 (7)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4137,7 +4137,7 @@ GameObject:
   - component: {fileID: 312897195}
   - component: {fileID: 312897194}
   - component: {fileID: 312897193}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Crystal platform_3 (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4271,7 +4271,7 @@ GameObject:
   - component: {fileID: 317112827}
   - component: {fileID: 317112826}
   - component: {fileID: 317112825}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Crystal platform_3 (4)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4405,7 +4405,7 @@ GameObject:
   - component: {fileID: 320668786}
   - component: {fileID: 320668785}
   - component: {fileID: 320668784}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Crystal platform_3 (13)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4539,7 +4539,7 @@ GameObject:
   - component: {fileID: 327192627}
   - component: {fileID: 327192629}
   - component: {fileID: 327192628}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: "Tr\u1EA7n nh\xE0 (13)"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4673,7 +4673,7 @@ GameObject:
   - component: {fileID: 329099338}
   - component: {fileID: 329099337}
   - component: {fileID: 329099336}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Crystal platform_3 (9)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5075,7 +5075,7 @@ GameObject:
   - component: {fileID: 364670144}
   - component: {fileID: 364670146}
   - component: {fileID: 364670145}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: "Tr\u1EA7n nh\xE0 (10)"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5343,7 +5343,7 @@ GameObject:
   - component: {fileID: 369827440}
   - component: {fileID: 369827439}
   - component: {fileID: 369827438}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Crystal platform_3 (18)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5537,15 +5537,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 5540468707557147012, guid: 93828a2f2d4e3d244a8c5658dc2a3ce7, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -5.6
+      value: 33
       objectReference: {fileID: 0}
     - target: {fileID: 5540468707557147012, guid: 93828a2f2d4e3d244a8c5658dc2a3ce7, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 7.2
+      value: 99.5
       objectReference: {fileID: 0}
     - target: {fileID: 5540468707557147012, guid: 93828a2f2d4e3d244a8c5658dc2a3ce7, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.1
+      value: 0.6
       objectReference: {fileID: 0}
     - target: {fileID: 5540468707557147012, guid: 93828a2f2d4e3d244a8c5658dc2a3ce7, type: 3}
       propertyPath: m_LocalRotation.w
@@ -5757,7 +5757,7 @@ GameObject:
   - component: {fileID: 394719815}
   - component: {fileID: 394719814}
   - component: {fileID: 394719813}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Crystal platform_3 (21)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7483,7 +7483,7 @@ GameObject:
   - component: {fileID: 540160346}
   - component: {fileID: 540160345}
   - component: {fileID: 540160347}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Crystal platform_3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7617,7 +7617,7 @@ GameObject:
   - component: {fileID: 550257476}
   - component: {fileID: 550257478}
   - component: {fileID: 550257477}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: "Tr\u1EA7n nh\xE0 (3)"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7673,7 +7673,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0.06604004, y: -0.47239947}
   m_SpriteTilingProperty:
     border: {x: 1.53125, y: 0, z: 2.3125, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -7683,7 +7683,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 11.96875, y: 4.09375}
+  m_Size: {x: 11.83667, y: 3.148951}
   m_EdgeRadius: 0
 --- !u!212 &550257478
 SpriteRenderer:
@@ -8153,7 +8153,7 @@ GameObject:
   - component: {fileID: 610408697}
   - component: {fileID: 610408696}
   - component: {fileID: 610408695}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Crystal platform_3 (10)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8544,6 +8544,63 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1001 &659512868
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 266181808027906985, guid: 8bfbac2607ec2c74ca79312d3521ddfc, type: 3}
+      propertyPath: m_Name
+      value: GameManager
+      objectReference: {fileID: 0}
+    - target: {fileID: 1869410693067703414, guid: 8bfbac2607ec2c74ca79312d3521ddfc, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 7.509755
+      objectReference: {fileID: 0}
+    - target: {fileID: 1869410693067703414, guid: 8bfbac2607ec2c74ca79312d3521ddfc, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 8.096926
+      objectReference: {fileID: 0}
+    - target: {fileID: 1869410693067703414, guid: 8bfbac2607ec2c74ca79312d3521ddfc, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.0072715855
+      objectReference: {fileID: 0}
+    - target: {fileID: 1869410693067703414, guid: 8bfbac2607ec2c74ca79312d3521ddfc, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1869410693067703414, guid: 8bfbac2607ec2c74ca79312d3521ddfc, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1869410693067703414, guid: 8bfbac2607ec2c74ca79312d3521ddfc, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1869410693067703414, guid: 8bfbac2607ec2c74ca79312d3521ddfc, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1869410693067703414, guid: 8bfbac2607ec2c74ca79312d3521ddfc, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1869410693067703414, guid: 8bfbac2607ec2c74ca79312d3521ddfc, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1869410693067703414, guid: 8bfbac2607ec2c74ca79312d3521ddfc, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 8bfbac2607ec2c74ca79312d3521ddfc, type: 3}
 --- !u!1 &661414279
 GameObject:
   m_ObjectHideFlags: 0
@@ -8555,7 +8612,7 @@ GameObject:
   - component: {fileID: 661414282}
   - component: {fileID: 661414281}
   - component: {fileID: 661414280}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Crystal platform_3 (5)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8689,7 +8746,7 @@ GameObject:
   - component: {fileID: 665440566}
   - component: {fileID: 665440565}
   - component: {fileID: 665440564}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Crystal platform_3 (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8957,7 +9014,7 @@ GameObject:
   - component: {fileID: 718587289}
   - component: {fileID: 718587291}
   - component: {fileID: 718587290}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: "Tr\u1EA7n nh\xE0 (16)"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9169,7 +9226,7 @@ GameObject:
   - component: {fileID: 728663333}
   - component: {fileID: 728663335}
   - component: {fileID: 728663334}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: "Tr\u1EA7n nh\xE0 (13)"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9381,7 +9438,7 @@ GameObject:
   - component: {fileID: 751579735}
   - component: {fileID: 751579737}
   - component: {fileID: 751579736}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: "Tr\u1EA7n nh\xE0 (6)"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10504,7 +10561,7 @@ GameObject:
   - component: {fileID: 857430096}
   - component: {fileID: 857430098}
   - component: {fileID: 857430097}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: "Tr\u1EA7n nh\xE0"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -11571,7 +11628,7 @@ GameObject:
   - component: {fileID: 954579996}
   - component: {fileID: 954579998}
   - component: {fileID: 954579997}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: "Tr\u1EA7n nh\xE0 (15)"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -11783,7 +11840,7 @@ GameObject:
   - component: {fileID: 999534651}
   - component: {fileID: 999534650}
   - component: {fileID: 999534649}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Crystal platform_3 (15)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -12051,7 +12108,7 @@ GameObject:
   - component: {fileID: 1005381452}
   - component: {fileID: 1005381454}
   - component: {fileID: 1005381453}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: "Tr\u1EA7n nh\xE0 (4)"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -12107,7 +12164,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0, y: -1.2334841}
   m_SpriteTilingProperty:
     border: {x: 1.53125, y: 0, z: 2.3125, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -12117,7 +12174,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 11.96875, y: 4.09375}
+  m_Size: {x: 11.96875, y: 1.6267817}
   m_EdgeRadius: 0
 --- !u!212 &1005381454
 SpriteRenderer:
@@ -12942,7 +12999,7 @@ GameObject:
   - component: {fileID: 1065414651}
   - component: {fileID: 1065414653}
   - component: {fileID: 1065414652}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: "Tr\u1EA7n nh\xE0 (19)"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -12998,7 +13055,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0.06604004, y: -0.9710386}
   m_SpriteTilingProperty:
     border: {x: 1.53125, y: 0, z: 2.3125, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -13008,7 +13065,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 11.96875, y: 4.09375}
+  m_Size: {x: 11.83667, y: 2.1516728}
   m_EdgeRadius: 0
 --- !u!212 &1065414653
 SpriteRenderer:
@@ -13967,7 +14024,7 @@ GameObject:
   - component: {fileID: 1156072859}
   - component: {fileID: 1156072861}
   - component: {fileID: 1156072860}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: "Tr\u1EA7n nh\xE0 (9)"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -15151,7 +15208,7 @@ GameObject:
   - component: {fileID: 1243909258}
   - component: {fileID: 1243909260}
   - component: {fileID: 1243909259}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: "Tr\u1EA7n nh\xE0 (11)"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -15870,7 +15927,7 @@ GameObject:
   - component: {fileID: 1290248259}
   - component: {fileID: 1290248258}
   - component: {fileID: 1290248257}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Crystal platform_3 (14)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -16004,7 +16061,7 @@ GameObject:
   - component: {fileID: 1302265586}
   - component: {fileID: 1302265585}
   - component: {fileID: 1302265584}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Crystal platform_3 (17)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -16261,6 +16318,95 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1001 &1314920968
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 914221532817647240, guid: 77b69af3eb51c974fa9d06dc3c3f8fe2, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 914221532817647240, guid: 77b69af3eb51c974fa9d06dc3c3f8fe2, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -5.02
+      objectReference: {fileID: 0}
+    - target: {fileID: 1642473162434139394, guid: 77b69af3eb51c974fa9d06dc3c3f8fe2, type: 3}
+      propertyPath: transitionTo
+      value: Cave_2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1642473162434139394, guid: 77b69af3eb51c974fa9d06dc3c3f8fe2, type: 3}
+      propertyPath: exitDirection.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1642473162434139394, guid: 77b69af3eb51c974fa9d06dc3c3f8fe2, type: 3}
+      propertyPath: exitDirection.y
+      value: -0.56
+      objectReference: {fileID: 0}
+    - target: {fileID: 2687642867704903560, guid: 77b69af3eb51c974fa9d06dc3c3f8fe2, type: 3}
+      propertyPath: m_Name
+      value: Scene Transition to cave 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4509414535026314731, guid: 77b69af3eb51c974fa9d06dc3c3f8fe2, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 4509414535026314731, guid: 77b69af3eb51c974fa9d06dc3c3f8fe2, type: 3}
+      propertyPath: m_WasSpriteAssigned
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4807071951833296422, guid: 77b69af3eb51c974fa9d06dc3c3f8fe2, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4807071951833296422, guid: 77b69af3eb51c974fa9d06dc3c3f8fe2, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 33.9
+      objectReference: {fileID: 0}
+    - target: {fileID: 4807071951833296422, guid: 77b69af3eb51c974fa9d06dc3c3f8fe2, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 106.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 4807071951833296422, guid: 77b69af3eb51c974fa9d06dc3c3f8fe2, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 14.979102
+      objectReference: {fileID: 0}
+    - target: {fileID: 4807071951833296422, guid: 77b69af3eb51c974fa9d06dc3c3f8fe2, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4807071951833296422, guid: 77b69af3eb51c974fa9d06dc3c3f8fe2, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4807071951833296422, guid: 77b69af3eb51c974fa9d06dc3c3f8fe2, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4807071951833296422, guid: 77b69af3eb51c974fa9d06dc3c3f8fe2, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4807071951833296422, guid: 77b69af3eb51c974fa9d06dc3c3f8fe2, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4807071951833296422, guid: 77b69af3eb51c974fa9d06dc3c3f8fe2, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4807071951833296422, guid: 77b69af3eb51c974fa9d06dc3c3f8fe2, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 77b69af3eb51c974fa9d06dc3c3f8fe2, type: 3}
 --- !u!1 &1322956825
 GameObject:
   m_ObjectHideFlags: 0
@@ -16406,7 +16552,7 @@ GameObject:
   - component: {fileID: 1324053540}
   - component: {fileID: 1324053539}
   - component: {fileID: 1324053538}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Crystal platform_3 (12)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -16674,7 +16820,7 @@ GameObject:
   - component: {fileID: 1336830123}
   - component: {fileID: 1336830125}
   - component: {fileID: 1336830124}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: "Tr\u1EA7n nh\xE0 (8)"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -17311,7 +17457,7 @@ GameObject:
   - component: {fileID: 1384547309}
   - component: {fileID: 1384547308}
   - component: {fileID: 1384547307}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Crystal platform_3 (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -17579,7 +17725,7 @@ GameObject:
   - component: {fileID: 1404908896}
   - component: {fileID: 1404908895}
   - component: {fileID: 1404908894}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Crystal platform_3 (8)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -18146,7 +18292,7 @@ GameObject:
   - component: {fileID: 1449417637}
   - component: {fileID: 1449417636}
   - component: {fileID: 1449417635}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Crystal platform_3 (19)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -18548,7 +18694,7 @@ GameObject:
   - component: {fileID: 1480093806}
   - component: {fileID: 1480093808}
   - component: {fileID: 1480093807}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: "Tr\u1EA7n nh\xE0 (7)"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -18682,7 +18828,7 @@ GameObject:
   - component: {fileID: 1485334382}
   - component: {fileID: 1485334384}
   - component: {fileID: 1485334383}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: "Tr\u1EA7n nh\xE0 (12)"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -19116,7 +19262,7 @@ GameObject:
   - component: {fileID: 1504409408}
   - component: {fileID: 1504409410}
   - component: {fileID: 1504409409}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: "Tr\u1EA7n nh\xE0 (12)"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -20564,7 +20710,7 @@ GameObject:
   - component: {fileID: 1682352175}
   - component: {fileID: 1682352174}
   - component: {fileID: 1682352173}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Crystal platform_3 (11)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -21664,7 +21810,7 @@ GameObject:
   - component: {fileID: 1843366799}
   - component: {fileID: 1843366801}
   - component: {fileID: 1843366800}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: "Tr\u1EA7n nh\xE0 (2)"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -21932,7 +22078,7 @@ GameObject:
   - component: {fileID: 1871783897}
   - component: {fileID: 1871783899}
   - component: {fileID: 1871783898}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: "Tr\u1EA7n nh\xE0 (1)"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -23226,7 +23372,7 @@ GameObject:
   - component: {fileID: 1977347692}
   - component: {fileID: 1977347694}
   - component: {fileID: 1977347693}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: "Tr\u1EA7n nh\xE0 (17)"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -23659,7 +23805,7 @@ GameObject:
   - component: {fileID: 2020346540}
   - component: {fileID: 2020346539}
   - component: {fileID: 2020346538}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Crystal platform_3 (22)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -23793,7 +23939,7 @@ GameObject:
   - component: {fileID: 2041482484}
   - component: {fileID: 2041482483}
   - component: {fileID: 2041482482}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Crystal platform_3 (23)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -24227,7 +24373,7 @@ GameObject:
   - component: {fileID: 2070991133}
   - component: {fileID: 2070991132}
   - component: {fileID: 2070991131}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Crystal platform_3 (16)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -24361,7 +24507,7 @@ GameObject:
   - component: {fileID: 2106093291}
   - component: {fileID: 2106093293}
   - component: {fileID: 2106093292}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: "Tr\u1EA7n nh\xE0 (14)"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -24629,7 +24775,7 @@ GameObject:
   - component: {fileID: 2137103800}
   - component: {fileID: 2137103802}
   - component: {fileID: 2137103801}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: "Tr\u1EA7n nh\xE0 (18)"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -24762,3 +24908,5 @@ SceneRoots:
   - {fileID: 236926548}
   - {fileID: 1198226065}
   - {fileID: 37994147}
+  - {fileID: 659512868}
+  - {fileID: 1314920968}

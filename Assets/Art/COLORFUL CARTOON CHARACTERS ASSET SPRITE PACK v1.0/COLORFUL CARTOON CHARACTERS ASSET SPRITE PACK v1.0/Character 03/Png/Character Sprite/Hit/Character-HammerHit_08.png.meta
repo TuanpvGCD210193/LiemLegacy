@@ -147,7 +147,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Character-HammerHit_08_0: 7523408175024978245
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

@@ -147,7 +147,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Flying-car_0: -2586704866569754882
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
