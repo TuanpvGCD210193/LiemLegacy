@@ -94,21 +94,21 @@ using UnityEngine.UI;
 
 
     //public static PlayerMovement Instance;
-    public static PlayerMovement Instance { get; private set; }
+    public static PlayerMovement Instance;
 
-    //private void Awake()
-    //{
-    //    if (Instance != null && Instance != this)
-    //    {
-    //        Destroy(gameObject);
-    //    }
-    //    else
-    //    {
-    //        Instance = this;
-    //    }
-    //    DontDestroyOnLoad(gameObject);
+    private void Awake()
+    {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+        }
+        else
+        {
+            Instance = this;
+        }
+        DontDestroyOnLoad(gameObject);
 
-    //}
+    }
 
     //private void Awake()
     //{
@@ -135,18 +135,18 @@ using UnityEngine.UI;
     //    }
     //}
 
-    private void Awake()
-    {
-        if (Instance == null)
-        {
-            Instance = this;
-        }
-        else
-        {
-            Destroy(gameObject);
-            return;
-        }
-    }
+    //private void Awake()
+    //{
+    //    if (Instance == null)
+    //    {
+    //        Instance = this;
+    //    }
+    //    else
+    //    {
+    //        Destroy(gameObject);
+    //        return;
+    //    }
+    //}
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -425,6 +425,7 @@ using UnityEngine.UI;
 
     public void TakeDamage(float _damage)
     {
+        Debug.Log("Player takes damage: " + damage);
         Health -= Mathf.RoundToInt(_damage);
         StartCoroutine(StopTakingDamage());
     }

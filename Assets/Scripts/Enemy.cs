@@ -11,24 +11,15 @@ public class Enemy : MonoBehaviour
     [SerializeField] protected PlayerMovement player;
     [SerializeField] protected float speed;
     [SerializeField] protected float damage;
+    [SerializeField] protected GameObject orangeBlood;
 
     protected float recoilTimer;
     protected Rigidbody2D rb;
+    protected SpriteRenderer sr;
+    protected Animator anim;
 
     // Start is called before the first frame update
     protected virtual void Start()
-    {
-        //rb = GetComponent<Rigidbody2D>();
-    }
-
-
-
-    //protected virtual void Awake()
-    //{
-    //    rb = GetComponent<Rigidbody2D>();
-    //    player = PlayerMovement.Instance;
-    //}
-    protected virtual void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
         player = PlayerMovement.Instance;
@@ -36,17 +27,50 @@ public class Enemy : MonoBehaviour
         {
             Debug.LogError(" Player instance is NULL in Enemy script!");
         }
+        sr = GetComponent<SpriteRenderer>();
+        anim = GetComponent<Animator>();
+    }
+    protected EnemyStates currentEnemyState;
+
+    protected virtual void Awake()
+    {
+
+
     }
 
 
+
+    protected virtual EnemyStates GetCurrentEnemyState
+    {
+        get { return currentEnemyState; }
+        set
+        {
+            if (currentEnemyState != value)
+            {
+                currentEnemyState = value;
+                ChangeCurrentAnimation();
+            }
+        }
+    }
 
     protected enum EnemyStates
     {
         //Crawler
         Crawler_Idle,
         Crawler_Flip,
+
+        //Dragon
+        Drag_Idle,
+        Drag_Chase,
+        Drag_Stunned,
+        Drag_Death,
+
+        //Charger
+        Charger_Idle,
+        Charger_Suprised,
+        Charger_Charge
     }
-    protected EnemyStates currentEnemyState;
+    
 
     // Update is called once per frame
     protected virtual void Update()
@@ -80,25 +104,52 @@ public class Enemy : MonoBehaviour
         health -= _damageDone;
         if (!isRecoiling)
         {
+            GameObject _orangeBlood = Instantiate(orangeBlood, transform.position, Quaternion.identity);
+            Destroy(_orangeBlood, 5.5f);
             rb.AddForce(-_hitForce * recoilFactor * _hitDirection);
             isRecoiling = true;
         }
     }
 
+    //protected void OnCollisionStay2D(Collision2D _other)
+    //{
+    //    if (_other.gameObject.CompareTag("Player") && !PlayerMovement.Instance.playerState.invincible)
+    //    {
+    //        Attack();
+    //        PlayerMovement.Instance.HitStopTime(0, 5, 0.5f);
+    //    }
+    //}
+
     protected void OnCollisionStay2D(Collision2D _other)
     {
-        if (_other.gameObject.CompareTag("Player") && !PlayerMovement.Instance.playerState.invincible)
+        Debug.Log("Enemy is colliding with " + _other.gameObject.name);
+
+        if (_other.gameObject.CompareTag("Player"))
         {
-            Attack();
-            PlayerMovement.Instance.HitStopTime(0, 5, 0.5f);
+            Debug.Log("Colliding with Player!");
+            if (!PlayerMovement.Instance.playerState.invincible)
+            {
+                Debug.Log("Enemy is attacking the player!");
+                Attack();
+                PlayerMovement.Instance.HitStopTime(0, 5, 0.5f);
+            }
         }
     }
 
+
+
+
+    protected virtual void Death(float _destroyTime)
+    {
+        Destroy(gameObject, _destroyTime);
+    }
+
     protected virtual void UpdateEnemyStates() { }
+    protected virtual void ChangeCurrentAnimation() { }
 
     protected void ChangeState(EnemyStates _newState)
     {
-        currentEnemyState = _newState;
+        GetCurrentEnemyState = _newState;
     }
     protected virtual void Attack()
     {
