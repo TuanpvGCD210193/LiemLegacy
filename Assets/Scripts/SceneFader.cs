@@ -7,7 +7,7 @@ using System.Collections;
 public class SceneFader : MonoBehaviour
 {
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    [SerializeField] private float fadeTime;
+    [SerializeField] public float fadeTime;
 
     private Image fadeOutUIImage;
     public enum FadeDirection
