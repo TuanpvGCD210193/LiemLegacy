@@ -68,7 +68,13 @@ public class Enemy : MonoBehaviour
         //Charger
         Charger_Idle,
         Charger_Suprised,
-        Charger_Charge
+        Charger_Charge,
+
+        //Shade
+        Shade_Idle,
+        Shade_Chase,
+        Shade_Stunned,
+        Shade_Death
     }
     
 
@@ -131,7 +137,10 @@ public class Enemy : MonoBehaviour
             {
                 Debug.Log("Enemy is attacking the player!");
                 Attack();
-                PlayerMovement.Instance.HitStopTime(0, 5, 0.5f);
+                if (PlayerMovement.Instance.playerState.alive)
+                {
+                    PlayerMovement.Instance.HitStopTime(0, 5, 0.5f);
+                }
             }
         }
     }

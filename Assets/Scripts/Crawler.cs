@@ -23,6 +23,14 @@ public class Crawler : Enemy
         rb.gravityScale = 12f;
     }
 
+    protected override void Update()
+    {
+        base.Update();
+        if (!PlayerMovement.Instance.playerState.alive)
+        {
+            ChangeState(EnemyStates.Crawler_Idle);
+        }
+    }
     //protected override void UpdateEnemyStates()
     //{
     //    switch (currentEnemyState)
@@ -58,6 +66,14 @@ public class Crawler : Enemy
     //            break;
     //    }
     //}
+
+    private void OnCollisionEnter2D(Collision2D _collision)
+    {
+        if (_collision.gameObject.CompareTag("Enemy"))
+        {
+            ChangeState(EnemyStates.Crawler_Flip);
+        }
+    }
 
     protected override void UpdateEnemyStates()
     {

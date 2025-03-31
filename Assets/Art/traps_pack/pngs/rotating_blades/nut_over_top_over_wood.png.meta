@@ -147,7 +147,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      nut_over_top_over_wood_0: -4961149550244100299
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

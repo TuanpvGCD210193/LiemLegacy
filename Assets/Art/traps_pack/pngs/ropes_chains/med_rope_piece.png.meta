@@ -147,7 +147,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      med_rope_piece_0: 2855080462373778891
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

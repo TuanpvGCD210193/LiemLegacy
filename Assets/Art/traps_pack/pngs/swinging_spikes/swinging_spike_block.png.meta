@@ -147,7 +147,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      swinging_spike_block_0: 9098199108340329673
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

@@ -14,6 +14,15 @@ public class Dragon : Enemy
         ChangeState(EnemyStates.Drag_Idle);
     }
 
+    protected override void Update()
+    {
+        base.Update();
+        if (!PlayerMovement.Instance.playerState.alive)
+        {
+            ChangeState(EnemyStates.Drag_Idle);
+        }
+    }
+
     protected override void UpdateEnemyStates()
     {
         float _dist = Vector2.Distance(transform.position, PlayerMovement.Instance.transform.position);

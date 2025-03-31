@@ -66,6 +66,7 @@ using UnityEngine.UI;
         [SerializeField] float mana;
         [SerializeField] float manaDrainSpeed;
         [SerializeField] float manaGain;
+        public bool halfMana;
 
         [Header("Spell Settings")]
         //spell stats
@@ -159,6 +160,12 @@ using UnityEngine.UI;
             Mana = mana;
             manaStorage.fillAmount = Mana;
             Health = maxHealth;
+
+            if (Health == 0)
+            {
+                playerState.alive = false;
+                GameManager.Instance.RespawnPlayer();
+            }
         }
 
         private void OnDrawGizmos()
@@ -174,12 +181,17 @@ using UnityEngine.UI;
         {
             if (playerState.cutscene) return;
 
+        if (playerState.alive)
+        {
             GetInputs();
+        }
             UpdateJumpVariables();
 
             if(playerState.dashing) return;
             RestoreTimeScale();
             FlashWhileInvincible();
+
+            if (!playerState.alive) return;
             Move();
             Heal();
             CastSpell();
@@ -425,9 +437,20 @@ using UnityEngine.UI;
 
     public void TakeDamage(float _damage)
     {
-        Debug.Log("Player takes damage: " + damage);
-        Health -= Mathf.RoundToInt(_damage);
-        StartCoroutine(StopTakingDamage());
+        if (playerState.alive)
+        {
+            Debug.Log("Player takes damage: " + damage);
+            Health -= Mathf.RoundToInt(_damage);
+            if (Health <= 0)
+            {
+                Health = 0;
+                StartCoroutine(Death());
+            }
+            else
+            {
+                StartCoroutine(StopTakingDamage());
+            }
+        }
     }
     IEnumerator StopTakingDamage()
     {
@@ -435,7 +458,7 @@ using UnityEngine.UI;
         GameObject _bloodSpurtParticles = Instantiate(bloodSpurt, transform.position, Quaternion.identity);
         Destroy(_bloodSpurtParticles, 1.5f);
         animator.SetTrigger("TakeDamage");
-        yield return new WaitForSeconds(1.5f);// tg bất chỉ định
+        yield return new WaitForSeconds(1.5f);
         playerState.invincible = false;
     }
 
@@ -480,6 +503,45 @@ using UnityEngine.UI;
     {
         yield return new WaitForSecondsRealtime(_delay);
         restoreTime = true;
+    }
+
+    IEnumerator Death()
+    {
+        playerState.alive = false;
+        Time.timeScale = 1f;
+        GameObject _bloodSpurtParticles = Instantiate(bloodSpurt, transform.position, Quaternion.identity);
+        Destroy(_bloodSpurtParticles, 1.5f);
+        animator.SetTrigger("Death");
+        rb.constraints = RigidbodyConstraints2D.FreezePosition;
+        GetComponent<BoxCollider2D>().enabled = false;
+
+        yield return new WaitForSeconds(0.9f);
+        StartCoroutine(UIManager.Instance.ActivateDeathScreen());
+
+        yield return new WaitForSeconds(0.1f);
+        Instantiate(GameManager.Instance.shade, transform.position, Quaternion.identity);
+    }
+
+    public void Respawned()
+    {
+        if (!playerState.alive)
+        {
+            rb.constraints = RigidbodyConstraints2D.None;
+            rb.constraints = RigidbodyConstraints2D.FreezeRotation;
+            GetComponent<BoxCollider2D>().enabled = true;
+            playerState.alive = true;
+            halfMana = true;
+            UIManager.Instance.SwitchMana(UIManager.ManaState.HalfMana);
+            Mana = 0;
+            Health = maxHealth;
+            animator.Play("Player_animation_idle");
+        }
+    }
+
+    public void RestoreMana()
+    {
+        halfMana = false;
+        UIManager.Instance.SwitchMana(UIManager.ManaState.FullMana);
     }
 
     public int Health
@@ -530,7 +592,14 @@ using UnityEngine.UI;
         {
             if (mana != value)
             {
-                mana = Mathf.Clamp(value, 0, 1);
+                if (!halfMana)
+                {
+                    mana = Mathf.Clamp(value, 0, 1);
+                }
+                else
+                {
+                    mana = Mathf.Clamp(value, 0, 0.5f);
+                }
                 manaStorage.fillAmount = Mana;
             }
         }

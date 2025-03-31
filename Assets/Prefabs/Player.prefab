@@ -75,8 +75,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 984445325
+  m_SortingLayer: 3
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 0869b1e96aac6d34cb086976dc7af826, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -304,7 +304,7 @@ Transform:
   m_LocalRotation: {x: 0.002705248, y: 0, z: 0, w: 0.9999964}
   m_LocalPosition: {x: -1.75, y: 1.72, z: -0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 3825233331345565606}
   - {fileID: 862083572524466622}
@@ -356,7 +356,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 974003379
   m_SortingLayer: 2
-  m_SortingOrder: 1
+  m_SortingOrder: 2
   m_Sprite: {fileID: 21300000, guid: 097737625e3c0e8419ccfffab34674a8, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -461,7 +461,7 @@ MonoBehaviour:
   jumpHeight: 17
   groundCheckPoint: {fileID: 3825233331345565606}
   groundCheckY: 0.2
-  groundCheckX: 0.5
+  groundCheckX: 0.4
   WhatIsGround:
     serializedVersion: 2
     m_Bits: 8
@@ -483,18 +483,19 @@ MonoBehaviour:
   damage: 2
   slashEffect: {fileID: 3360240373237962358, guid: 3bc459e8a7072d54b87d31766ca116a7, type: 3}
   recoilXSteps: 10
-  recoilYSteps: 10
-  recoilXSpeed: 100
-  recoilYSpeed: 32
-  health: 5
-  maxHealth: 10
+  recoilYSteps: 0
+  recoilXSpeed: 30
+  recoilYSpeed: 30
+  health: 1
+  maxHealth: 1
   bloodSpurt: {fileID: 3824608301138951699, guid: 50d22bde3ac94d44b8056b9123fbb9d7, type: 3}
   hitFlashSpeed: 10
   timeToHeal: 1
   manaStorage: {fileID: 0}
-  mana: 0.5
+  mana: 1
   manaDrainSpeed: 0.2
   manaGain: 0.3
+  halfMana: 0
   manaSpellCost: 0.01
   timeBetweenCast: 0.5
   spellDamage: 10
@@ -502,6 +503,9 @@ MonoBehaviour:
   sideSpellFireball: {fileID: 1439447568463063665, guid: 75e4a2ee5a62925418314d431535d7b1, type: 3}
   upSpellExplosion: {fileID: 6777706656691055306, guid: 78dbed143e43ed149a639808b9e193d0, type: 3}
   downSpellFireball: {fileID: 396839022712329415}
+  xAxis: 0
+  yAxis: 0
+  rb: {fileID: 0}
   playerState: {fileID: 0}
 --- !u!95 &7497584884416489259
 Animator:
@@ -541,7 +545,9 @@ MonoBehaviour:
   dashing: 0
   recoilingX: 0
   recoilingY: 0
-  lookingRight: 0
+  lookingRight: 1
   invincible: 0
   healing: 0
   casting: 0
+  cutscene: 0
+  alive: 1
