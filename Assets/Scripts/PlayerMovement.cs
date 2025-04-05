@@ -84,6 +84,7 @@ using UnityEngine.UI;
 
         public float xAxis;
         public float yAxis;
+        bool openMap;
         public Rigidbody2D rb;
         Animator animator;
         public PlayerStateList playerState;
@@ -111,43 +112,6 @@ using UnityEngine.UI;
 
     }
 
-    //private void Awake()
-    //{
-    //    if (Instance != null && Instance != this)
-    //    {
-    //        Destroy(gameObject);
-    //    }
-    //    else
-    //    {
-    //        Instance = this;
-    //        DontDestroyOnLoad(gameObject);
-    //    }
-    //}
-
-    //private void Awake()
-    //{
-    //    if (Instance == null)
-    //    {
-    //        Instance = this;
-    //    }
-    //    else
-    //    {
-    //        Destroy(gameObject);
-    //    }
-    //}
-
-    //private void Awake()
-    //{
-    //    if (Instance == null)
-    //    {
-    //        Instance = this;
-    //    }
-    //    else
-    //    {
-    //        Destroy(gameObject);
-    //        return;
-    //    }
-    //}
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -160,12 +124,21 @@ using UnityEngine.UI;
             Mana = mana;
             manaStorage.fillAmount = Mana;
             Health = maxHealth;
+            SaveData.Instance.LoadPlayerData();
+            if (halfMana)
+            {
+                UIManager.Instance.SwitchMana(UIManager.ManaState.HalfMana);
+            }
+            else
+            {
+                UIManager.Instance.SwitchMana(UIManager.ManaState.FullMana);
+            }
 
             if (Health == 0)
             {
-                playerState.alive = false;
-                GameManager.Instance.RespawnPlayer();
-            }
+                    playerState.alive = false;
+                    GameManager.Instance.RespawnPlayer();
+             }
         }
 
         private void OnDrawGizmos()
@@ -184,6 +157,7 @@ using UnityEngine.UI;
         if (playerState.alive)
         {
             GetInputs();
+            ToggleMap();
         }
             UpdateJumpVariables();
 
@@ -222,11 +196,13 @@ using UnityEngine.UI;
         {
             xAxis = Input.GetAxisRaw("Horizontal");
             yAxis = Input.GetAxisRaw("Vertical");
+            openMap = Input.GetButton("Map");
             attack = Input.GetButtonDown("Attack");
             if (Input.GetButton("Cast/Heal"))
             {
                 castOrHealTimer += Time.deltaTime;
             }
+
             //else
             //{
             //    castOrHealTimer = 0;
@@ -234,7 +210,19 @@ using UnityEngine.UI;
 
         }
 
-        private void Move()
+    void ToggleMap()
+    {
+        if (openMap)
+        {
+            UIManager.Instance.mapHandler.SetActive(true);
+        }
+        else
+        {
+            UIManager.Instance.mapHandler.SetActive(false);
+        }
+    }
+
+    private void Move()
         {
             if (playerState.healing) rb.linearVelocity = new Vector2(0, 0);
             rb.linearVelocity = new Vector2(walkSpeed * xAxis, rb.linearVelocity.y);
@@ -520,6 +508,8 @@ using UnityEngine.UI;
 
         yield return new WaitForSeconds(0.1f);
         Instantiate(GameManager.Instance.shade, transform.position, Quaternion.identity);
+
+        SaveData.Instance.SavePlayerData();
     }
 
     public void Respawned()
@@ -585,7 +575,7 @@ using UnityEngine.UI;
         }
     }
 
-    float Mana
+    public float Mana
     {
         get { return mana; }
         set

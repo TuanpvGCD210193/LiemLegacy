@@ -49,5 +49,4 @@ MonoBehaviour:
   respawnPoint: {x: 0, y: 0}
   defaultRespawnPoint: {x: -0.38, y: 0}
   bench: {fileID: 0}
-  lastInteractedBench: {fileID: 0}
   shade: {fileID: 7744710313217155695, guid: ea907635068b57f4cb315a97b50415d1, type: 3}

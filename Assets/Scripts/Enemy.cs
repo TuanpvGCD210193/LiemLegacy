@@ -128,7 +128,7 @@ public class Enemy : MonoBehaviour
 
     protected void OnCollisionStay2D(Collision2D _other)
     {
-        Debug.Log("Enemy is colliding with " + _other.gameObject.name);
+        //Debug.Log("Enemy is colliding with " + _other.gameObject.name);
 
         if (_other.gameObject.CompareTag("Player"))
         {

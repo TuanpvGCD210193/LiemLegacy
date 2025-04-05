@@ -487,7 +487,7 @@ MonoBehaviour:
   recoilXSpeed: 30
   recoilYSpeed: 30
   health: 1
-  maxHealth: 1
+  maxHealth: 10
   bloodSpurt: {fileID: 3824608301138951699, guid: 50d22bde3ac94d44b8056b9123fbb9d7, type: 3}
   hitFlashSpeed: 10
   timeToHeal: 1

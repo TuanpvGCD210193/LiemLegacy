@@ -7,6 +7,7 @@ public class UIManager : MonoBehaviour
     public static UIManager Instance;
     public SceneFader sceneFader;
     [SerializeField] GameObject deathScreen;
+    public GameObject mapHandler;
     [SerializeField] GameObject halfMana, fullMana;
 
     public enum ManaState

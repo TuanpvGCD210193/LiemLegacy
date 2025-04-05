@@ -1,23 +1,24 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Bench : MonoBehaviour
 {
     bool inRange = false;
-    public bool interacted = false;
+    public bool interacted;
+
     // Update is called once per frame
     void Update()
     {
-        //if (Input.GetButtonDown("Interact") && inRange) interacted = true;
         if (Input.GetButtonDown("Interact") && inRange)
         {
-            if (GameManager.Instance.lastInteractedBench != null)
-            {
-                GameManager.Instance.lastInteractedBench.interacted = false;
-            }
-
             interacted = true;
-            GameManager.Instance.lastInteractedBench = this;
-            GameManager.Instance.SetRespawnPoint(transform.position);
+
+            SaveData.Instance.benchSceneName = SceneManager.GetActiveScene().name;
+            SaveData.Instance.benchPos = new Vector2(gameObject.transform.position.x, gameObject.transform.position.y);
+            SaveData.Instance.SaveBench();
+            SaveData.Instance.SavePlayerData();
+
+            Debug.Log("benched");
         }
     }
 
@@ -28,6 +29,9 @@ public class Bench : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D _collision)
     {
-        if (_collision.CompareTag("Player")) inRange = false;
+        if (_collision.CompareTag("Player"))
+        {
+            inRange = false;
+        }
     }
 }

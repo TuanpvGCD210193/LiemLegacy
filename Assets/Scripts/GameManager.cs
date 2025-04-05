@@ -1,18 +1,23 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
     public string transitionedFromScene;
-    public static GameManager Instance { get; private set; }
+
     public Vector2 platformingRespawnPoint;
     public Vector2 respawnPoint;
     [SerializeField] Vector2 defaultRespawnPoint;
     [SerializeField] Bench bench;
-    public Bench lastInteractedBench;
+
     public GameObject shade;
 
+    public static GameManager Instance { get; private set; }
     private void Awake()
     {
+        SaveData.Instance.Initialize();
         if (Instance != null && Instance != this)
         {
             Destroy(gameObject);
@@ -21,33 +26,54 @@ public class GameManager : MonoBehaviour
         {
             Instance = this;
         }
+        if (PlayerMovement.Instance != null)
+        {
+            if (PlayerMovement.Instance.halfMana)
+            {
+                SaveData.Instance.LoadShadeData();
+                if (SaveData.Instance.sceneWithShade == SceneManager.GetActiveScene().name || SaveData.Instance.sceneWithShade == "")
+                {
+                    Instantiate(shade, SaveData.Instance.shadePos, SaveData.Instance.shadeRot);
+                }
+            }
+        }
+        SaveScene();
         DontDestroyOnLoad(gameObject);
-        respawnPoint = defaultRespawnPoint; // Đặt điểm hồi sinh mặc định
+        bench = FindObjectOfType<Bench>();
     }
-    public void SetRespawnPoint(Vector2 position)
+    private void Update()
     {
-        respawnPoint = position;
+        if(Input.GetKeyDown(KeyCode.P))
+        {
+            SaveData.Instance.SavePlayerData();
+            Debug.Log("SavePlayerData");
+        }
+    }
+
+    public void SaveScene()
+    {
+        string currentSceneName = SceneManager.GetActiveScene().name;
+        SaveData.Instance.sceneNames.Add(currentSceneName);
     }
     public void RespawnPlayer()
     {
-        //if (bench.interacted) //set the respawn point to the bench's position.
-        //{
-        //    respawnPoint = bench.transform.position;
-        //}
-        //else
-        //{
-        //    respawnPoint = defaultRespawnPoint;
-        //}
-
-        if (lastInteractedBench != null && lastInteractedBench.interacted)
+        SaveData.Instance.LoadBench();
+        if (SaveData.Instance.benchSceneName != null) //load the bench's scene if it exists.
         {
-            respawnPoint = lastInteractedBench.transform.position;
+            SceneManager.LoadScene(SaveData.Instance.benchSceneName);
+        }
+
+        if (SaveData.Instance.benchPos != null) //set the respawn point to the bench's position.
+        {
+            respawnPoint = SaveData.Instance.benchPos;
+        }
+        else
+        {
+            respawnPoint = defaultRespawnPoint;
         }
 
         PlayerMovement.Instance.transform.position = respawnPoint;
         StartCoroutine(UIManager.Instance.DeactivateDeathScreen());
         PlayerMovement.Instance.Respawned();
     }
-
-    
 }

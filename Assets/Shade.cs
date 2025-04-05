@@ -19,6 +19,7 @@ public class Shade : Enemy
             Instance = this;
         }
         Debug.Log("shade spawned");
+        SaveData.Instance.SaveShadeData();
     }
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     protected override void Start()
@@ -109,6 +110,7 @@ public class Shade : Enemy
         if (GetCurrentEnemyState == EnemyStates.Shade_Death)
         {
             PlayerMovement.Instance.RestoreMana();
+            SaveData.Instance.SavePlayerData();
             anim.SetTrigger("Death");
             Destroy(gameObject, 0.5f);
         }
