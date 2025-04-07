@@ -147,6 +147,37 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!1 &1097828812281042819
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4036441101104899296}
+  m_Layer: 6
+  m_Name: Wall Check
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4036441101104899296
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1097828812281042819}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.64, y: -0.17, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5540468707557147012}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3597039276795653059
 GameObject:
   m_ObjectHideFlags: 0
@@ -307,6 +338,7 @@ Transform:
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 3825233331345565606}
+  - {fileID: 4036441101104899296}
   - {fileID: 862083572524466622}
   - {fileID: 5997217814636381883}
   - {fileID: 4301379471975097860}
@@ -465,6 +497,13 @@ MonoBehaviour:
   WhatIsGround:
     serializedVersion: 2
     m_Bits: 8
+  wallSlidingSpeed: 2
+  wallCheck: {fileID: 4036441101104899296}
+  wallLayer:
+    serializedVersion: 2
+    m_Bits: 8
+  wallJumpingDuration: 0.1
+  wallJumpingPower: {x: 15, y: 45}
   dashSpeed: 70
   dashTime: 0.2
   dashCoolDown: 0.35

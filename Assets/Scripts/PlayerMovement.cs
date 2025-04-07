@@ -24,6 +24,17 @@ using UnityEngine.UI;
         [SerializeField] private float groundCheckX = 0.5f;
         [SerializeField] private LayerMask WhatIsGround;
 
+        [Header("Wall Jump Settings")]
+        [SerializeField] private float wallSlidingSpeed = 2f;
+        [SerializeField] private Transform wallCheck;
+        [SerializeField] private LayerMask wallLayer;
+        [SerializeField] private float wallJumpingDuration;
+        [SerializeField] private Vector2 wallJumpingPower;
+        float wallJumpingDirection;
+        bool isWallSliding;
+        bool isWallJumping;
+        [Space(5)]
+
         [Header("Change Dash Setting for player")]
         [SerializeField] private float dashSpeed;
         [SerializeField] private float dashTime;
@@ -98,6 +109,11 @@ using UnityEngine.UI;
     //public static PlayerMovement Instance;
     public static PlayerMovement Instance;
 
+    //unlocking 
+    public bool unlockedWallJump;
+    public bool unlockedDash;
+    public bool unlockedVarJump;
+
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -160,20 +176,34 @@ using UnityEngine.UI;
             ToggleMap();
         }
             UpdateJumpVariables();
-
-            if(playerState.dashing) return;
             RestoreTimeScale();
+
+            if (playerState.dashing) return;
             FlashWhileInvincible();
 
             if (!playerState.alive) return;
-            Move();
+            if (!isWallJumping)
+            {
+                Move();
+            }
             Heal();
             CastSpell();
 
             if (playerState.healing) return;
-            PlayerFlip();
-            Jump();
-            StartDash();
+            if (!isWallJumping)
+            {
+                PlayerFlip();
+                Jump();
+            }
+            if (unlockedWallJump)
+            {
+                WallSlide();
+                WallJump();
+            }
+            if (unlockedDash)
+            {
+                StartDash();
+            }
             Attack();
             //Recoil
         }
@@ -692,7 +722,7 @@ using UnityEngine.UI;
             playerState.jumping = true;
         }
 
-        if (!Grounded() && airJumpCounter < maxAirJump && Input.GetButtonDown("Jump"))
+        if (!Grounded() && airJumpCounter < maxAirJump && Input.GetButtonDown("Jump") && unlockedVarJump)
         {
             playerState.jumping = true;
 
@@ -734,7 +764,56 @@ using UnityEngine.UI;
             }
         }
 
-        void PlayerFlip()
+    private bool Walled()
+    {
+        return Physics2D.OverlapCircle(wallCheck.position, 0.2f, wallLayer);
+    }
+
+    void WallSlide()
+    {
+        if (Walled() && !Grounded() && xAxis != 0)
+        {
+            isWallSliding = true;
+            rb.linearVelocity = new Vector2(rb.linearVelocity.x, Mathf.Clamp(rb.linearVelocity.y, -wallSlidingSpeed, float.MaxValue));
+        }
+        else
+        {
+            isWallSliding = false;
+        }
+    }
+    void WallJump()
+    {
+        if (isWallSliding)
+        {
+            isWallJumping = false;
+            wallJumpingDirection = !playerState.lookingRight ? 1 : -1;
+
+            CancelInvoke(nameof(StopWallJumping));
+        }
+
+        if (Input.GetButtonDown("Jump") && isWallSliding)
+        {
+            isWallJumping = true;
+            rb.linearVelocity = new Vector2(wallJumpingDirection * wallJumpingPower.x, wallJumpingPower.y);
+
+            dashed = false;
+            airJumpCounter = 0;
+
+            playerState.lookingRight = !playerState.lookingRight;
+
+            float jumpDirection = playerState.lookingRight ? 0 : 180;
+            transform.eulerAngles = new Vector2(transform.eulerAngles.x, jumpDirection);
+
+            Invoke(nameof(StopWallJumping), wallJumpingDuration);
+        }
+    }
+    void StopWallJumping()
+    {
+        isWallJumping = false;
+        transform.eulerAngles = new Vector2(transform.eulerAngles.x, 0);
+    }
+
+    void PlayerFlip()
         {
             if (xAxis < 0)
             {

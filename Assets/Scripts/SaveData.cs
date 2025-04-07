@@ -21,6 +21,9 @@ public struct SaveData
     public bool playerHalfMana;
     public Vector2 playerPosition;
     public string lastScene;
+
+    public bool playerUnlockedWallJump, playerUnlockedDash, playerUnlockedVarJump; 
+
     //enemies stuff
     //shade
     public Vector2 shadePos;
@@ -86,6 +89,14 @@ public struct SaveData
             playerHalfMana = PlayerMovement.Instance.halfMana;
             writer.Write(playerHalfMana);
 
+            playerUnlockedWallJump = PlayerMovement.Instance.unlockedWallJump;//unlock wall jump
+            writer.Write(playerUnlockedWallJump);//unlock wall jump
+
+            playerUnlockedDash = PlayerMovement.Instance.unlockedDash;//unlock dash
+            writer.Write(playerUnlockedDash);//unlock dash
+            playerUnlockedVarJump = PlayerMovement.Instance.unlockedVarJump;//unlock dash
+            writer.Write(playerUnlockedVarJump);//unlock dash
+
             playerPosition = PlayerMovement.Instance.transform.position;
             writer.Write(playerPosition.x);
             writer.Write(playerPosition.y);
@@ -106,6 +117,11 @@ public struct SaveData
                 playerHealth = reader.ReadInt32();
                 playerMana = reader.ReadSingle();
                 playerHalfMana = reader.ReadBoolean();
+                playerUnlockedWallJump = reader.ReadBoolean();// Unlocking Abilities
+
+                playerUnlockedDash = reader.ReadBoolean();//unlock dash
+                playerUnlockedVarJump = reader.ReadBoolean();
+
                 playerPosition.x = reader.ReadSingle();
                 playerPosition.y = reader.ReadSingle();
                 lastScene = reader.ReadString();
@@ -115,6 +131,10 @@ public struct SaveData
                 PlayerMovement.Instance.halfMana = playerHalfMana;
                 PlayerMovement.Instance.Health = playerHealth;
                 PlayerMovement.Instance.Mana = playerMana;
+
+                PlayerMovement.Instance.unlockedWallJump = playerUnlockedWallJump;// Unlocking Abilities
+                PlayerMovement.Instance.unlockedDash = playerUnlockedDash;//unlock dash
+                PlayerMovement.Instance.unlockedVarJump = playerUnlockedVarJump;
             }
             Debug.Log("load player data");
             Debug.Log(playerHalfMana);
@@ -125,6 +145,10 @@ public struct SaveData
             PlayerMovement.Instance.halfMana = false;
             PlayerMovement.Instance.Health = PlayerMovement.Instance.maxHealth;
             PlayerMovement.Instance.Mana = 0.5f;
+
+            PlayerMovement.Instance.unlockedWallJump = false;
+            PlayerMovement.Instance.unlockedDash = false;
+            PlayerMovement.Instance.unlockedVarJump = false;
         }
     }
 
