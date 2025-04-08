@@ -64,6 +64,8 @@ using UnityEngine.UI;
         [Header("Player Health Point setting")]
         public int health;
         public int maxHealth;
+        public int maxTotalHealth = 10;
+        public int heartShards;
         [SerializeField] GameObject bloodSpurt;
         [SerializeField] float hitFlashSpeed;
         public delegate void OnHealthChangedDelegate();
@@ -78,6 +80,9 @@ using UnityEngine.UI;
         [SerializeField] float manaDrainSpeed;
         [SerializeField] float manaGain;
         public bool halfMana;
+        public ManaOrbsHandler manaOrbsHandler;
+        public int orbShard;
+        public int manaOrbs;
 
         [Header("Spell Settings")]
         //spell stats
@@ -140,12 +145,19 @@ using UnityEngine.UI;
             playerState = GetComponent<PlayerStateList>();
             rb = GetComponent<Rigidbody2D>();
             animator = GetComponent<Animator>();
+
+            manaOrbsHandler = FindObjectOfType<ManaOrbsHandler>();
+
             gravity = rb.gravityScale;
             sr = GetComponent<SpriteRenderer>();
             Mana = mana;
             manaStorage.fillAmount = Mana;
             Health = maxHealth;
             SaveData.Instance.LoadPlayerData();
+            if (manaOrbs > 3)
+            {
+                manaOrbs = 3;
+            }
             if (halfMana)
             {
                 UIManager.Instance.SwitchMana(UIManager.ManaState.HalfMana);
@@ -154,12 +166,12 @@ using UnityEngine.UI;
             {
                 UIManager.Instance.SwitchMana(UIManager.ManaState.FullMana);
             }
-
+            onHealthChangedCallback.Invoke();
             if (Health == 0)
             {
-                    playerState.alive = false;
-                    GameManager.Instance.RespawnPlayer();
-             }
+                        playerState.alive = false;
+                        GameManager.Instance.RespawnPlayer();
+            }
         }
 
         private void OnDrawGizmos()
@@ -399,7 +411,14 @@ using UnityEngine.UI;
 
                 if (obj.CompareTag("Enemy"))
                 {
-                    Mana += manaGain;
+                    if (!halfMana && Mana < 1 || (halfMana && Mana < 0.5))
+                    {
+                        Mana += manaGain;
+                    }
+                    else
+                    {
+                        manaOrbsHandler.UpdateMana(manaGain * 3);
+                    }
                 }
 
                 hitSomething = true;
@@ -600,6 +619,8 @@ using UnityEngine.UI;
                 Health++;
                 healTimer = 0;
             }
+            manaOrbsHandler.usedMana = true;
+            manaOrbsHandler.countDown = 3f;
             Mana -= Time.deltaTime * manaDrainSpeed; 
         }
         else
@@ -682,6 +703,8 @@ using UnityEngine.UI;
             playerState.recoilingX = true;
 
             Mana -= manaSpellCost;
+            manaOrbsHandler.usedMana = true;
+            manaOrbsHandler.countDown = 3f;
             yield return new WaitForSeconds(0.35f);
         }
 
@@ -695,6 +718,8 @@ using UnityEngine.UI;
             rb.linearVelocity = Vector2.zero;
 
             Mana -= manaSpellCost;
+            manaOrbsHandler.usedMana = true;
+            manaOrbsHandler.countDown = 3f;
             yield return new WaitForSeconds(0.35f);
         }
 
@@ -707,6 +732,8 @@ using UnityEngine.UI;
             downSpellFireball.SetActive(true);
 
             Mana -= manaSpellCost;
+            manaOrbsHandler.usedMana = true;
+            manaOrbsHandler.countDown = 3f;
             yield return new WaitForSeconds(0.35f);
         }
 

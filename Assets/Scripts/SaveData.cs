@@ -17,8 +17,15 @@ public struct SaveData
     public Vector2 benchPos;
     //player stuff
     public int playerHealth;
+    public int playerMaxHealth;// increse max health
+    public int playerHeartShards;// increse max health
+
     public float playerMana;
+    public int playerManaOrbs;
+    public int playerOrbShard;
+    public float playerOrb0fill, playerOrb1fill, playerOrb2fill;
     public bool playerHalfMana;
+
     public Vector2 playerPosition;
     public string lastScene;
 
@@ -85,11 +92,27 @@ public struct SaveData
         {
             playerHealth = PlayerMovement.Instance.Health;
             writer.Write(playerHealth);
+            //Savin player health
+            playerMaxHealth = PlayerMovement.Instance.maxHealth;
+            writer.Write(playerMaxHealth);
+            playerHeartShards = PlayerMovement.Instance.heartShards;
+            writer.Write(playerHeartShards);
+            //
             playerMana = PlayerMovement.Instance.Mana;
             writer.Write(playerMana);
             playerHalfMana = PlayerMovement.Instance.halfMana;
             writer.Write(playerHalfMana);
-
+            playerManaOrbs = PlayerMovement.Instance.manaOrbs;
+            writer.Write(playerManaOrbs);
+            playerOrbShard = PlayerMovement.Instance.orbShard;
+            writer.Write(playerOrbShard);
+            playerOrb0fill = PlayerMovement.Instance.manaOrbsHandler.orbFills[0].fillAmount;
+            writer.Write(playerOrb0fill);
+            playerOrb1fill = PlayerMovement.Instance.manaOrbsHandler.orbFills[1].fillAmount;
+            writer.Write(playerOrb1fill);
+            playerOrb2fill = PlayerMovement.Instance.manaOrbsHandler.orbFills[2].fillAmount;
+            writer.Write(playerOrb2fill);
+            //
             playerUnlockedWallJump = PlayerMovement.Instance.unlockedWallJump;//unlock wall jump
             writer.Write(playerUnlockedWallJump);//unlock wall jump
 
@@ -121,8 +144,18 @@ public struct SaveData
             using (BinaryReader reader = new BinaryReader(File.OpenRead(Application.persistentDataPath + "/save.player.data")))
             {
                 playerHealth = reader.ReadInt32();
+                playerMaxHealth = reader.ReadInt32();
+                playerHeartShards = reader.ReadInt32();
+
                 playerMana = reader.ReadSingle();
                 playerHalfMana = reader.ReadBoolean();
+                //
+                playerManaOrbs = reader.ReadInt32();
+                playerOrbShard = reader.ReadInt32();
+                playerOrb0fill = reader.ReadSingle();
+                playerOrb1fill = reader.ReadSingle();
+                playerOrb2fill = reader.ReadSingle();
+                //
 
                 playerUnlockedWallJump = reader.ReadBoolean();// Unlocking Abilities
                 playerUnlockedDash = reader.ReadBoolean();//unlock dash
@@ -140,7 +173,16 @@ public struct SaveData
                 PlayerMovement.Instance.transform.position = playerPosition;
                 PlayerMovement.Instance.halfMana = playerHalfMana;
                 PlayerMovement.Instance.Health = playerHealth;
+                PlayerMovement.Instance.maxHealth = playerMaxHealth;
+                PlayerMovement.Instance.heartShards = playerHeartShards;
                 PlayerMovement.Instance.Mana = playerMana;
+                //
+                PlayerMovement.Instance.manaOrbs = playerManaOrbs;
+                PlayerMovement.Instance.orbShard = playerOrbShard;
+                PlayerMovement.Instance.manaOrbsHandler.orbFills[0].fillAmount = playerOrb0fill;
+                PlayerMovement.Instance.manaOrbsHandler.orbFills[1].fillAmount = playerOrb1fill;
+                PlayerMovement.Instance.manaOrbsHandler.orbFills[2].fillAmount = playerOrb2fill;
+                //
 
                 PlayerMovement.Instance.unlockedWallJump = playerUnlockedWallJump;// Unlocking Abilities
                 PlayerMovement.Instance.unlockedDash = playerUnlockedDash;//unlock dash
@@ -159,6 +201,7 @@ public struct SaveData
             PlayerMovement.Instance.halfMana = false;
             PlayerMovement.Instance.Health = PlayerMovement.Instance.maxHealth;
             PlayerMovement.Instance.Mana = 0.5f;
+            PlayerMovement.Instance.heartShards = 0;
 
             PlayerMovement.Instance.unlockedWallJump = false;
             PlayerMovement.Instance.unlockedDash = false;
