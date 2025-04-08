@@ -22,7 +22,8 @@ public struct SaveData
     public Vector2 playerPosition;
     public string lastScene;
 
-    public bool playerUnlockedWallJump, playerUnlockedDash, playerUnlockedVarJump; 
+    public bool playerUnlockedWallJump, playerUnlockedDash, playerUnlockedVarJump;
+    public bool playerUnlockedSideCast, playerUnlockedUpCast, playerUnlockedDownCast;
 
     //enemies stuff
     //shade
@@ -97,6 +98,13 @@ public struct SaveData
             playerUnlockedVarJump = PlayerMovement.Instance.unlockedVarJump;//unlock dash
             writer.Write(playerUnlockedVarJump);//unlock dash
 
+            playerUnlockedSideCast = PlayerMovement.Instance.unlockedSideCast;
+            writer.Write(playerUnlockedSideCast);
+            playerUnlockedUpCast = PlayerMovement.Instance.unlockedUpCast;
+            writer.Write(playerUnlockedUpCast);
+            playerUnlockedDownCast = PlayerMovement.Instance.unlockedDownCast;
+            writer.Write(playerUnlockedDownCast);
+
             playerPosition = PlayerMovement.Instance.transform.position;
             writer.Write(playerPosition.x);
             writer.Write(playerPosition.y);
@@ -105,8 +113,6 @@ public struct SaveData
             writer.Write(lastScene);
         }
         Debug.Log("saved player data");
-
-
     }
     public void LoadPlayerData()
     {
@@ -117,10 +123,14 @@ public struct SaveData
                 playerHealth = reader.ReadInt32();
                 playerMana = reader.ReadSingle();
                 playerHalfMana = reader.ReadBoolean();
-                playerUnlockedWallJump = reader.ReadBoolean();// Unlocking Abilities
 
+                playerUnlockedWallJump = reader.ReadBoolean();// Unlocking Abilities
                 playerUnlockedDash = reader.ReadBoolean();//unlock dash
                 playerUnlockedVarJump = reader.ReadBoolean();
+
+                playerUnlockedSideCast = reader.ReadBoolean();
+                playerUnlockedUpCast = reader.ReadBoolean();
+                playerUnlockedDownCast = reader.ReadBoolean();
 
                 playerPosition.x = reader.ReadSingle();
                 playerPosition.y = reader.ReadSingle();
@@ -135,6 +145,10 @@ public struct SaveData
                 PlayerMovement.Instance.unlockedWallJump = playerUnlockedWallJump;// Unlocking Abilities
                 PlayerMovement.Instance.unlockedDash = playerUnlockedDash;//unlock dash
                 PlayerMovement.Instance.unlockedVarJump = playerUnlockedVarJump;
+
+                PlayerMovement.Instance.unlockedSideCast = playerUnlockedSideCast;
+                PlayerMovement.Instance.unlockedUpCast = playerUnlockedUpCast;
+                PlayerMovement.Instance.unlockedDownCast = playerUnlockedDownCast;
             }
             Debug.Log("load player data");
             Debug.Log(playerHalfMana);
@@ -149,6 +163,10 @@ public struct SaveData
             PlayerMovement.Instance.unlockedWallJump = false;
             PlayerMovement.Instance.unlockedDash = false;
             PlayerMovement.Instance.unlockedVarJump = false;
+
+            PlayerMovement.Instance.unlockedSideCast = false;
+            PlayerMovement.Instance.unlockedUpCast = false;
+            PlayerMovement.Instance.unlockedDownCast = false;
         }
     }
 

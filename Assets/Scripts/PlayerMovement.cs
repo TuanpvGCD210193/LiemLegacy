@@ -109,10 +109,15 @@ using UnityEngine.UI;
     //public static PlayerMovement Instance;
     public static PlayerMovement Instance;
 
-    //unlocking 
+    //unlocking Abilities
     public bool unlockedWallJump;
     public bool unlockedDash;
     public bool unlockedVarJump;
+
+    //unlocking spells
+    public bool unlockedSideCast;
+    public bool unlockedUpCast;
+    public bool unlockedDownCast;
 
     private void Awake()
     {
@@ -657,12 +662,11 @@ using UnityEngine.UI;
     //CastCoroutine()
     IEnumerator CastCoroutine()
     {
-        animator.SetBool("Casting", true);
-        yield return new WaitForSeconds(0.15f);
-
         //side cast
-        if (yAxis == 0 || (yAxis < 0 && Grounded()))
+        if ((yAxis == 0 || (yAxis < 0 && Grounded())) && unlockedSideCast)
         {
+            animator.SetBool("Casting", true);
+            yield return new WaitForSeconds(0.15f);
             GameObject _fireBall = Instantiate(sideSpellFireball, SideAttackTransform.position, Quaternion.identity);
 
             //flip fireball
@@ -676,23 +680,37 @@ using UnityEngine.UI;
                 //if not facing right, rotate the fireball 180 deg
             }
             playerState.recoilingX = true;
+
+            Mana -= manaSpellCost;
+            yield return new WaitForSeconds(0.35f);
         }
 
         //up cast
-        else if (yAxis > 0)
+        else if (yAxis > 0 && unlockedUpCast)
         {
+            animator.SetBool("Casting", true);
+            yield return new WaitForSeconds(0.15f);
+
             Instantiate(upSpellExplosion, transform);
             rb.linearVelocity = Vector2.zero;
+
+            Mana -= manaSpellCost;
+            yield return new WaitForSeconds(0.35f);
         }
 
         //down cast
-        else if (yAxis < 0 && !Grounded())
+        else if ((yAxis < 0 && !Grounded()) && unlockedDownCast)
         {
+            animator.SetBool("Casting", true);
+            yield return new WaitForSeconds(0.15f);
+
             downSpellFireball.SetActive(true);
+
+            Mana -= manaSpellCost;
+            yield return new WaitForSeconds(0.35f);
         }
 
-        Mana -= manaSpellCost;
-        yield return new WaitForSeconds(0.35f);
+
         animator.SetBool("Casting", false);
         playerState.casting = false;
     }
@@ -710,9 +728,9 @@ using UnityEngine.UI;
             {
                 return false;
             }
-        }
+    }
 
-
+    
     void Jump()
     {
         if (jumpBufferCounter > 0 && coyoteTimeCounter > 0 && !playerState.jumping)
