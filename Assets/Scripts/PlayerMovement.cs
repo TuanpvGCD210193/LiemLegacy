@@ -100,7 +100,6 @@ using UnityEngine.UI;
 
         public float xAxis;
         public float yAxis;
-        bool openMap;
         public Rigidbody2D rb;
         Animator animator;
         public PlayerStateList playerState;
@@ -108,7 +107,8 @@ using UnityEngine.UI;
         private bool canDash = true;
         private bool dashed;
         private SpriteRenderer sr;
-
+        bool openMap;
+        bool openInventory;
 
 
     //public static PlayerMovement Instance;
@@ -191,6 +191,7 @@ using UnityEngine.UI;
         {
             GetInputs();
             ToggleMap();
+            ToggleInventory();
         }
             UpdateJumpVariables();
             RestoreTimeScale();
@@ -245,6 +246,7 @@ using UnityEngine.UI;
             yAxis = Input.GetAxisRaw("Vertical");
             openMap = Input.GetButton("Map");
             attack = Input.GetButtonDown("Attack");
+            openInventory = Input.GetButton("Inventory");
             if (Input.GetButton("Cast/Heal"))
             {
                 castOrHealTimer += Time.deltaTime;
@@ -266,6 +268,18 @@ using UnityEngine.UI;
         else
         {
             UIManager.Instance.mapHandler.SetActive(false);
+        }
+    }
+
+    void ToggleInventory()
+    {
+        if (openInventory)
+        {
+            UIManager.Instance.inventory.SetActive(true);
+        }
+        else
+        {
+            UIManager.Instance.inventory.SetActive(false);
         }
     }
 
