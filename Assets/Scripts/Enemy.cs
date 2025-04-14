@@ -12,11 +12,13 @@ public class Enemy : MonoBehaviour
     [SerializeField] protected float speed;
     [SerializeField] protected float damage;
     [SerializeField] protected GameObject orangeBlood;
+    [SerializeField] protected AudioClip hurtSound;
 
     protected float recoilTimer;
     protected Rigidbody2D rb;
     protected SpriteRenderer sr;
     protected Animator anim;
+    protected AudioSource audioSource;
 
     // Start is called before the first frame update
     protected virtual void Start()
@@ -29,6 +31,7 @@ public class Enemy : MonoBehaviour
         }
         sr = GetComponent<SpriteRenderer>();
         anim = GetComponent<Animator>();
+        audioSource = GetComponent<AudioSource>();
     }
     protected EnemyStates currentEnemyState;
 
@@ -112,6 +115,7 @@ public class Enemy : MonoBehaviour
         health -= _damageDone;
         if (!isRecoiling)
         {
+            audioSource.PlayOneShot(hurtSound);
             GameObject _orangeBlood = Instantiate(orangeBlood, transform.position, Quaternion.identity);
             Destroy(_orangeBlood, 5.5f);
             rb.AddForce(-_hitForce * recoilFactor * _hitDirection);
