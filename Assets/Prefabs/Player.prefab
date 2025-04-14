@@ -317,6 +317,7 @@ GameObject:
   - component: {fileID: 8353546610626486707}
   - component: {fileID: 7497584884416489259}
   - component: {fileID: 6996487174896251757}
+  - component: {fileID: 5487027408427389015}
   m_Layer: 6
   m_Name: Player
   m_TagString: Player
@@ -527,6 +528,8 @@ MonoBehaviour:
   recoilYSpeed: 30
   health: 1
   maxHealth: 10
+  maxTotalHealth: 10
+  heartShards: 0
   bloodSpurt: {fileID: 3824608301138951699, guid: 50d22bde3ac94d44b8056b9123fbb9d7, type: 3}
   hitFlashSpeed: 10
   timeToHeal: 1
@@ -535,6 +538,9 @@ MonoBehaviour:
   manaDrainSpeed: 0.2
   manaGain: 0.3
   halfMana: 0
+  manaOrbsHandler: {fileID: 0}
+  orbShard: 0
+  manaOrbs: 0
   manaSpellCost: 0.01
   timeBetweenCast: 0.5
   spellDamage: 10
@@ -542,10 +548,21 @@ MonoBehaviour:
   sideSpellFireball: {fileID: 1439447568463063665, guid: 75e4a2ee5a62925418314d431535d7b1, type: 3}
   upSpellExplosion: {fileID: 6777706656691055306, guid: 78dbed143e43ed149a639808b9e193d0, type: 3}
   downSpellFireball: {fileID: 396839022712329415}
+  landingSound: {fileID: 8300000, guid: d4ba3eefd672d7d4985e8e075883fe54, type: 3}
+  jumpSound: {fileID: 8300000, guid: fa9b81e7c394ab04dbe44ac435085620, type: 3}
+  dashAndAttackSound: {fileID: 8300000, guid: 717803bb5048cc040ae867d39ee24ede, type: 3}
+  spellCastSound: {fileID: 8300000, guid: 90fc81afd0e380343a4d353f0c0d2ffa, type: 3}
+  hurtSound: {fileID: 8300000, guid: ae9019c5bdd295d47993bbc0d6d8357c, type: 3}
   xAxis: 0
   yAxis: 0
   rb: {fileID: 0}
   playerState: {fileID: 0}
+  unlockedWallJump: 0
+  unlockedDash: 0
+  unlockedVarJump: 0
+  unlockedSideCast: 0
+  unlockedUpCast: 0
+  unlockedDownCast: 0
 --- !u!95 &7497584884416489259
 Animator:
   serializedVersion: 7
@@ -590,3 +607,100 @@ MonoBehaviour:
   casting: 0
   cutscene: 0
   alive: 1
+--- !u!82 &5487027408427389015
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8514252052589179390}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 24300002, guid: 9a43e97c8cdbe0740a88992e7b3f6ca8, type: 2}
+  m_audioClip: {fileID: 0}
+  m_Resource: {fileID: 0}
+  m_PlayOnAwake: 1
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4

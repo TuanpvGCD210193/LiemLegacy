@@ -14,6 +14,10 @@ public class GameManager : MonoBehaviour
 
     public GameObject shade;
 
+    [SerializeField] FadeUI pauseMenu;
+    [SerializeField] float fadeTime;
+    public bool gameIsPaused;
+
     public static GameManager Instance { get; private set; }
     private void Awake()
     {
@@ -41,13 +45,31 @@ public class GameManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
         bench = FindObjectOfType<Bench>();
     }
+
     private void Update()
     {
-        if(Input.GetKeyDown(KeyCode.P))
+        //test save game
+        if (Input.GetKeyDown(KeyCode.P))
         {
             SaveData.Instance.SavePlayerData();
             Debug.Log("SavePlayerData");
         }
+
+        if (Input.GetKeyDown(KeyCode.Escape) && !gameIsPaused)
+        {
+            pauseMenu.FadeUIIn(fadeTime);
+            Time.timeScale = 0;
+            gameIsPaused = true;
+        }
+    }
+    public void UnPauseGame()
+    {
+        gameIsPaused = false;
+        Time.timeScale = 1;
+    }
+    public void SaveGame()
+    {
+        SaveData.Instance.SavePlayerData();
     }
 
     public void SaveScene()

@@ -10773,6 +10773,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2390692789ac3524489e9d42e21f7a9a, type: 3}
+--- !u!114 &725937097 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4656480576379525120, guid: 2390692789ac3524489e9d42e21f7a9a, type: 3}
+  m_PrefabInstance: {fileID: 725937096}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0d3428bf73c48db4fa247b137e7df582, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &731725795
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -26329,6 +26340,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7311274957098683178, guid: 8bfbac2607ec2c74ca79312d3521ddfc, type: 3}
+      propertyPath: fadeTime
+      value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 7311274957098683178, guid: 8bfbac2607ec2c74ca79312d3521ddfc, type: 3}
+      propertyPath: pauseMenu
+      value: 
+      objectReference: {fileID: 725937097}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

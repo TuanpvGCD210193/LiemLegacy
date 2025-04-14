@@ -98,6 +98,14 @@ using UnityEngine.UI;
         float timeSinceCast;
         float castOrHealTimer;
 
+        [Header("Audio")]
+        [SerializeField] AudioClip landingSound;
+        [SerializeField] AudioClip jumpSound;
+        [SerializeField] AudioClip dashAndAttackSound;
+        [SerializeField] AudioClip spellCastSound;
+        [SerializeField] AudioClip hurtSound;
+        private bool landingSoundPlayed;
+
         public float xAxis;
         public float yAxis;
         public Rigidbody2D rb;
@@ -109,6 +117,9 @@ using UnityEngine.UI;
         private SpriteRenderer sr;
         bool openMap;
         bool openInventory;
+        bool wasMoving = false; // test audio when walking
+
+        AudioSource audioSource;
 
 
     //public static PlayerMovement Instance;
@@ -148,6 +159,8 @@ using UnityEngine.UI;
 
             manaOrbsHandler = FindObjectOfType<ManaOrbsHandler>();
 
+            audioSource = GetComponent<AudioSource>();
+
             gravity = rb.gravityScale;
             sr = GetComponent<SpriteRenderer>();
             Mana = mana;
@@ -185,7 +198,7 @@ using UnityEngine.UI;
         // Update is called once per frame
         void Update()
         {
-            if (playerState.cutscene) return;
+            if (playerState.cutscene || GameManager.Instance.gameIsPaused) return;
 
         if (playerState.alive)
         {
@@ -284,13 +297,31 @@ using UnityEngine.UI;
     }
 
     private void Move()
+    {
+        if (playerState.healing)
         {
-            if (playerState.healing) rb.linearVelocity = new Vector2(0, 0);
-            rb.linearVelocity = new Vector2(walkSpeed * xAxis, rb.linearVelocity.y);
-            animator.SetBool("Walking", rb.linearVelocity.x != 0 && Grounded());
+            rb.linearVelocity = new Vector2(0, 0);
+            return;
         }
 
-        void StartDash()
+        // Apply movement
+        rb.linearVelocity = new Vector2(walkSpeed * xAxis, rb.linearVelocity.y);
+
+        // Determine if currently moving
+        bool isMoving = Mathf.Abs(rb.linearVelocity.x) > 0.01f && Grounded();
+        animator.SetBool("Walking", isMoving);
+
+        // Play sound only when starting to move
+        if (isMoving && !wasMoving)
+        {
+            audioSource.PlayOneShot(landingSound);
+        }
+
+        // Update movement state for next frame
+        wasMoving = isMoving;
+    }
+
+    void StartDash()
         {
             if (Input.GetButtonDown("Dash") && canDash && !dashed)
             {
@@ -309,6 +340,7 @@ using UnityEngine.UI;
         canDash = false;
         playerState.dashing = true;
         animator.SetTrigger("Dashing");
+        audioSource.PlayOneShot(dashAndAttackSound);
         rb.gravityScale = 0;
 
         // Cập nhật hướng dựa trên transform
@@ -386,6 +418,7 @@ using UnityEngine.UI;
         {
             timeSinceAttack = 0;
             animator.SetTrigger("Attacking");
+            audioSource.PlayOneShot(dashAndAttackSound);
 
             if (yAxis == 0 || (yAxis < 0 && Grounded()))
             {
@@ -495,6 +528,7 @@ using UnityEngine.UI;
     {
         if (playerState.alive)
         {
+            audioSource.PlayOneShot(hurtSound);
             Debug.Log("Player takes damage: " + damage);
             Health -= Mathf.RoundToInt(_damage);
             if (Health <= 0)
@@ -701,6 +735,7 @@ using UnityEngine.UI;
         if ((yAxis == 0 || (yAxis < 0 && Grounded())) && unlockedSideCast)
         {
             animator.SetBool("Casting", true);
+            audioSource.PlayOneShot(spellCastSound);
             yield return new WaitForSeconds(0.15f);
             GameObject _fireBall = Instantiate(sideSpellFireball, SideAttackTransform.position, Quaternion.identity);
 
@@ -726,6 +761,7 @@ using UnityEngine.UI;
         else if (yAxis > 0 && unlockedUpCast)
         {
             animator.SetBool("Casting", true);
+            audioSource.PlayOneShot(spellCastSound);
             yield return new WaitForSeconds(0.15f);
 
             Instantiate(upSpellExplosion, transform);
@@ -741,6 +777,7 @@ using UnityEngine.UI;
         else if ((yAxis < 0 && !Grounded()) && unlockedDownCast)
         {
             animator.SetBool("Casting", true);
+            audioSource.PlayOneShot(spellCastSound);
             yield return new WaitForSeconds(0.15f);
 
             downSpellFireball.SetActive(true);
@@ -776,6 +813,10 @@ using UnityEngine.UI;
     {
         if (jumpBufferCounter > 0 && coyoteTimeCounter > 0 && !playerState.jumping)
         {
+            if (Input.GetButtonDown("Jump"))
+            {
+                audioSource.PlayOneShot(jumpSound);
+            }
             rb.linearVelocity = new Vector3(rb.linearVelocity.x, jumpForce);
 
             playerState.jumping = true;
@@ -783,6 +824,7 @@ using UnityEngine.UI;
 
         if (!Grounded() && airJumpCounter < maxAirJump && Input.GetButtonDown("Jump") && unlockedVarJump)
         {
+            audioSource.PlayOneShot(jumpSound);
             playerState.jumping = true;
 
             airJumpCounter++;
@@ -804,13 +846,20 @@ using UnityEngine.UI;
         {
             if (Grounded())
             {
-                playerState.jumping = false;
-                coyoteTimeCounter = coyoteTime;
+                if (!landingSoundPlayed)
+                {
+                    landingSoundPlayed = true;
+                    audioSource.PlayOneShot(landingSound);
+                }
+                     
                 airJumpCounter = 0;
+                coyoteTimeCounter = coyoteTime;
+                playerState.jumping = false;
             }
             else
             {
                 coyoteTimeCounter -= Time.deltaTime;
+                landingSoundPlayed = false;
             }
 
             if (Input.GetButtonDown("Jump"))
@@ -852,6 +901,7 @@ using UnityEngine.UI;
 
         if (Input.GetButtonDown("Jump") && isWallSliding)
         {
+            audioSource.PlayOneShot(jumpSound);
             isWallJumping = true;
             rb.linearVelocity = new Vector2(wallJumpingDirection * wallJumpingPower.x, wallJumpingPower.y);
 
