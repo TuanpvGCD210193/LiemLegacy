@@ -9,15 +9,15 @@ public class Enemy : MonoBehaviour
     [SerializeField] protected bool isRecoiling = false;
 
     [SerializeField] protected PlayerMovement player;
-    [SerializeField] protected float speed;
-    [SerializeField] protected float damage;
+    [SerializeField] public float speed;
+    [SerializeField] public float damage;
     [SerializeField] protected GameObject orangeBlood;
     [SerializeField] protected AudioClip hurtSound;
 
     protected float recoilTimer;
-    protected Rigidbody2D rb;
+    [HideInInspector] public Rigidbody2D rb;
     protected SpriteRenderer sr;
-    protected Animator anim;
+    [HideInInspector] public Animator anim;
     protected AudioSource audioSource;
 
     // Start is called before the first frame update
@@ -77,7 +77,13 @@ public class Enemy : MonoBehaviour
         Shade_Idle,
         Shade_Chase,
         Shade_Stunned,
-        Shade_Death
+        Shade_Death,
+
+        //Boss
+        Boss_Stage1,
+        Boss_Stage2,
+        Boss_Stage3,
+        Boss_Stage4
     }
     
 
@@ -132,7 +138,7 @@ public class Enemy : MonoBehaviour
     //    }
     //}
 
-    protected void OnCollisionStay2D(Collision2D _other)
+    protected virtual void OnCollisionStay2D(Collision2D _other)
     {
         //Debug.Log("Enemy is colliding with " + _other.gameObject.name);
 
