@@ -36,4 +36,9 @@ public class BossEvents : MonoBehaviour
         }
     }
 
+    void Parrying()
+    {
+        Boss.Instance.parrying = true;
+    }
+
 }

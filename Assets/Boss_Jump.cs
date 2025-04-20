@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Boss_Idle : StateMachineBehaviour
+public class Boss_Jump : StateMachineBehaviour
 {
     Rigidbody2D rb;
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
@@ -14,32 +14,34 @@ public class Boss_Idle : StateMachineBehaviour
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        rb.linearVelocity = Vector2.zero;
-        RunToPlayer(animator);
-
-        if (Boss.Instance.attackCountdown <= 0)
-        {
-            Boss.Instance.AttackHandler();
-            Boss.Instance.attackCountdown = Random.Range(Boss.Instance.attackTimer - 1, Boss.Instance.attackTimer + 1);
-        }
-
-        if (!Boss.Instance.Grounded())
-        {
-            rb.linearVelocity = new Vector2(rb.linearVelocity.x, -10); //if knight is not grounded, fall to ground
-        }
+        DiveAttack();
     }
 
-    void RunToPlayer(Animator animator)
+    void DiveAttack()
     {
-        if (Vector2.Distance(PlayerMovement.Instance.transform.position, rb.position) >= Boss.Instance.attackRange)
+        if (Boss.Instance.diveAttack)
         {
-            animator.SetBool("Run", true);
-        }
-        else
-        {
-            return;
+            Boss.Instance.Flip();
+
+            Vector2 _newPos = Vector2.MoveTowards(rb.position, Boss.Instance.moveToPosition,
+                Boss.Instance.speed * 3 * Time.fixedDeltaTime);
+            rb.MovePosition(_newPos);
+
+            if (Boss.Instance.TouchedWall())
+            {
+                Boss.Instance.moveToPosition.x = rb.position.x;
+                _newPos = Vector2.MoveTowards(rb.position, Boss.Instance.moveToPosition,
+                    Boss.Instance.speed * 3 * Time.fixedDeltaTime);
+            }
+
+            float _distance = Vector2.Distance(rb.position, _newPos);
+            if (_distance < 0.1f)
+            {
+                Boss.Instance.Dive();
+            }
         }
     }
+
     // OnStateExit is called when a transition ends and the state machine finishes evaluating this state
     override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {

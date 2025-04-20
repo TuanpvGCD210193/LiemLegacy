@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Boss_Idle : StateMachineBehaviour
+public class Boss_Lunge : StateMachineBehaviour
 {
     Rigidbody2D rb;
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
@@ -14,32 +14,22 @@ public class Boss_Idle : StateMachineBehaviour
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        rb.linearVelocity = Vector2.zero;
-        RunToPlayer(animator);
+        rb.gravityScale = 0;
+        int _dir = Boss.Instance.facingRight ? 1 : -1;
+        rb.linearVelocity = new Vector2(_dir * (Boss.Instance.speed * 5), 0f);
 
-        if (Boss.Instance.attackCountdown <= 0)
+        if (Vector2.Distance(PlayerMovement.Instance.transform.position, rb.position) <= Boss.Instance.attackRange &&
+            !Boss.Instance.damagedPlayer && !PlayerMovement.Instance.playerState.invincible)
         {
-            Boss.Instance.AttackHandler();
-            Boss.Instance.attackCountdown = Random.Range(Boss.Instance.attackTimer - 1, Boss.Instance.attackTimer + 1);
-        }
-
-        if (!Boss.Instance.Grounded())
-        {
-            rb.linearVelocity = new Vector2(rb.linearVelocity.x, -10); //if knight is not grounded, fall to ground
+            PlayerMovement.Instance.TakeDamage(Boss.Instance.damage);
+            if (PlayerMovement.Instance.playerState.alive)
+            {
+                PlayerMovement.Instance.HitStopTime(0, 5, 0.5f);
+            }
+            Boss.Instance.damagedPlayer = true;
         }
     }
 
-    void RunToPlayer(Animator animator)
-    {
-        if (Vector2.Distance(PlayerMovement.Instance.transform.position, rb.position) >= Boss.Instance.attackRange)
-        {
-            animator.SetBool("Run", true);
-        }
-        else
-        {
-            return;
-        }
-    }
     // OnStateExit is called when a transition ends and the state machine finishes evaluating this state
     override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {

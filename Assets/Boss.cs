@@ -23,6 +23,7 @@ public class Boss : Enemy
 
     [Header("Ground Check Settings:")]
     public Transform groundCheckPoint; //point at which ground check happens
+    public Transform wallCheckPoint; //point at which wall check happens
     [SerializeField] private float groundCheckY = 0.2f; //how far down from ground chekc point is Grounded() checked
     [SerializeField] private float groundCheckX = 0.5f; //how far horizontally from ground chekc point to the edge of the player is
     [SerializeField] private LayerMask whatIsGround; //sets the ground layer
@@ -37,6 +38,15 @@ public class Boss : Enemy
 
     [HideInInspector] public bool attacking;
     [HideInInspector] public float attackCountdown;
+    [HideInInspector] public bool damagedPlayer = false;
+    [HideInInspector] public bool parrying;
+
+
+    [HideInInspector] public Vector2 moveToPosition;//slill boss Dive Attack
+    [HideInInspector] public bool diveAttack; //slill boss Dive Attack
+    public GameObject divingCollider; //slill boss Dive Attack
+    public GameObject pillar; //slill boss Dive Attack
+
 
     private void Awake()
     {
@@ -66,6 +76,20 @@ public class Boss : Enemy
         if (Physics2D.Raycast(groundCheckPoint.position, Vector2.down, groundCheckY, whatIsGround)
             || Physics2D.Raycast(groundCheckPoint.position + new Vector3(groundCheckX, 0, 0), Vector2.down, groundCheckY, whatIsGround)
             || Physics2D.Raycast(groundCheckPoint.position + new Vector3(-groundCheckX, 0, 0), Vector2.down, groundCheckY, whatIsGround))
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    public bool TouchedWall()
+    {
+        if (Physics2D.Raycast(wallCheckPoint.position, Vector2.down, groundCheckY, whatIsGround)
+    || Physics2D.Raycast(wallCheckPoint.position + new Vector3(groundCheckX, 0, 0), Vector2.down, groundCheckY, whatIsGround)
+    || Physics2D.Raycast(wallCheckPoint.position + new Vector3(-groundCheckX, 0, 0), Vector2.down, groundCheckY, whatIsGround))
         {
             return true;
         }
@@ -131,6 +155,32 @@ public class Boss : Enemy
 
     protected override void OnCollisionStay2D(Collision2D _other) { }
 
+    public override void EnemyGetsHit(float _damageDone, Vector2 _hitDirection, float _hitForce)
+    {
+        if (!stunned)
+        {
+            if (!parrying)
+            {
+                ResetAllAttacks();
+                base.EnemyGetsHit(_damageDone, _hitDirection, _hitForce);
+
+                if (currentEnemyState != EnemyStates.Boss_Stage4)
+                {
+                    ResetAllAttacks(); //cancel any current attack to avoid bugs 
+                    StartCoroutine(Parry());
+                }
+
+            }
+            else
+            {
+                StopCoroutine(Parry());
+                parrying = false;
+                ResetAllAttacks();
+                StartCoroutine(Slash());  //riposte
+            }
+        }
+    }
+
     public void AttackHandler()
     {
         if (currentEnemyState == EnemyStates.Boss_Stage1)
@@ -139,7 +189,14 @@ public class Boss : Enemy
             {
                 StartCoroutine(TripleSlash());
             }
+
+            else
+            {
+                //StartCoroutine(Lunge());
+                DiveAttackJump();
+            }
         }
+
     }
 
     public void ResetAllAttacks()
@@ -147,6 +204,14 @@ public class Boss : Enemy
         attacking = false;
 
         StopCoroutine(TripleSlash());
+
+        StopCoroutine(Lunge());
+
+        StopCoroutine(Parry());
+
+        StopCoroutine(Slash());
+
+        diveAttack = false;
     }
 
     //IEnumerator TripleSlash()
@@ -220,5 +285,81 @@ public class Boss : Enemy
         _slashEffect = Instantiate(_slashEffect, _attackTransform);
         _slashEffect.transform.eulerAngles = new Vector3(0, 0, _effectAngle);
         _slashEffect.transform.localScale = new Vector2(transform.localScale.x, transform.localScale.y);
+    }
+    IEnumerator Lunge()
+    {
+        Flip();
+        attacking = true;
+
+        anim.SetBool("Lunge", true);
+        yield return new WaitForSeconds(1f);
+        anim.SetBool("Lunge", false);
+        damagedPlayer = false;
+        ResetAllAttacks();
+    }
+
+    IEnumerator Parry()
+    {
+        attacking = true;
+        rb.linearVelocity = Vector2.zero;
+        anim.SetBool("Parry", true);
+        yield return new WaitForSeconds(0.8f);
+        anim.SetBool("Parry", false);
+
+        parrying = false;
+        ResetAllAttacks();
+    }
+
+    IEnumerator Slash()
+    {
+        attacking = true;
+        rb.linearVelocity = Vector2.zero; // Dừng di chuyển
+
+        anim.SetTrigger("Slash");
+        yield return new WaitForSeconds(0.4f); // đợi nửa animation
+        SlashAngle();
+        yield return new WaitForSeconds(0.3f); // đợi tiếp phần còn lại
+        anim.ResetTrigger("Slash");
+
+        ResetAllAttacks();
+    }
+
+    void DiveAttackJump()
+    {
+        attacking = true;
+        moveToPosition = new Vector2(PlayerMovement.Instance.transform.position.x, rb.position.y + 10);
+        diveAttack = true;
+        anim.SetBool("Jump", true);
+    }
+
+    public void Dive()
+    {
+        anim.SetBool("Dive", true);
+        anim.SetBool("Jump", false);
+    }
+    private void OnTriggerEnter2D(Collider2D _other)
+    {
+        if (_other.GetComponent<PlayerMovement>() != null && diveAttack)
+        {
+            _other.GetComponent<PlayerMovement>().TakeDamage(damage * 2);
+            PlayerMovement.Instance.playerState.recoilingX = true;
+        }
+    }
+
+    public void DivingPillars()
+    {
+        Vector2 _impactPoint = groundCheckPoint.position;
+        float _spawnDistance = 5;
+
+        for (int i = 0; i < 10; i++)
+        {
+            Vector2 _pillarSpawnPointRight = _impactPoint + new Vector2(_spawnDistance, 0);
+            Vector2 _pillarSpawnPointLeft = _impactPoint - new Vector2(_spawnDistance, 0);
+            Instantiate(pillar, _pillarSpawnPointRight, Quaternion.Euler(0, 0, -90));
+            Instantiate(pillar, _pillarSpawnPointLeft, Quaternion.Euler(0, 0, -90));
+
+            _spawnDistance += 5;
+        }
+        ResetAllAttacks();
     }
 }
