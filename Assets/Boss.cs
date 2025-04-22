@@ -47,6 +47,14 @@ public class Boss : Enemy
     public GameObject divingCollider; //slill boss Dive Attack
     public GameObject pillar; //slill boss Dive Attack
 
+    [HideInInspector] public bool barrageAttack;
+    public GameObject barrageFireball;
+    [HideInInspector] public bool outbreakAttack;
+
+    [HideInInspector] public bool bounceAttack;
+    [HideInInspector] public float rotationDirectionToTarget;
+    [HideInInspector] public int bounceCount;
+
 
     private void Awake()
     {
@@ -67,7 +75,7 @@ public class Boss : Enemy
         sr = GetComponentInChildren<SpriteRenderer>();
         anim = GetComponentInChildren<Animator>();
         ChangeState(EnemyStates.Boss_Stage1);
-
+        alive = true;
 
     }
 
@@ -108,13 +116,29 @@ public class Boss : Enemy
     }
 
     // Update is called once per frame
-    void Update()
+    protected override void Update()
     {
+        if (!alive)
+            return;       // ← nếu đã chết thì thôi, không chạy AI nữa
         base.Update();
+
+        if (health <= 0 && alive)
+            Death(0);
 
         if (!attacking)
         {
             attackCountdown -= Time.deltaTime;
+        }
+
+        if (stunned)
+        {
+            rb.linearVelocity = Vector2.zero;
+        }
+
+        if (Input.GetKeyDown(KeyCode.K))
+        {
+            anim.SetTrigger("Die");
+            Debug.Log("Pressed K - Trigger Die Sent");
         }
     }
 
@@ -139,15 +163,19 @@ public class Boss : Enemy
             switch (GetCurrentEnemyState)
             {
                 case EnemyStates.Boss_Stage1:
+                    canStun = true;
                     break;
 
                 case EnemyStates.Boss_Stage2:
+                    canStun = true;
                     break;
 
                 case EnemyStates.Boss_Stage3:
+                    canStun = true;
                     break;
 
                 case EnemyStates.Boss_Stage4:
+                    canStun = true;
                     break;
             }
         }
@@ -161,6 +189,16 @@ public class Boss : Enemy
         {
             if (!parrying)
             {
+                if (canStun)
+                {
+                    hitCounter++;
+                    if (hitCounter >= 3)
+                    {
+                        ResetAllAttacks();
+                        StartCoroutine(Stunned());
+                    }
+                }
+
                 ResetAllAttacks();
                 base.EnemyGetsHit(_damageDone, _hitDirection, _hitForce);
 
@@ -179,6 +217,33 @@ public class Boss : Enemy
                 StartCoroutine(Slash());  //riposte
             }
         }
+        else
+        {
+            StopCoroutine(Stunned());
+            anim.SetBool("Stunned", false);
+            stunned = false;
+        }
+
+        if (health > 15)
+        {
+            ChangeState(EnemyStates.Boss_Stage1);
+        }
+        if (health <= 15 && health > 10)
+        {
+            ChangeState(EnemyStates.Boss_Stage2);
+        }
+        if (health <= 10 && health > 5)
+        {
+            ChangeState(EnemyStates.Boss_Stage3);
+        }
+        if (health < 5)
+        {
+            ChangeState(EnemyStates.Boss_Stage4);
+        }
+        if (health <= 0 && alive)
+        {
+            Death(0);
+        }
     }
 
     public void AttackHandler()
@@ -193,7 +258,10 @@ public class Boss : Enemy
             else
             {
                 //StartCoroutine(Lunge());
-                DiveAttackJump();
+                //DiveAttackJump();
+                //BarrageBendDown();
+                //OutbreakBendDown();
+                BounceAttack();
             }
         }
 
@@ -212,30 +280,13 @@ public class Boss : Enemy
         StopCoroutine(Slash());
 
         diveAttack = false;
+
+        barrageAttack = false;
+
+        outbreakAttack = false;
+
+        bounceAttack = false;
     }
-
-    //IEnumerator TripleSlash()
-    //{
-    //    attacking = true;
-    //    rb.linearVelocity = Vector2.zero;//dừng chuyển động của Boss trước khi đánh.
-
-    //    anim.SetTrigger("Slash");
-    //    SlashAngle();
-    //    yield return new WaitForSeconds(0.7f);
-    //    anim.ResetTrigger("Slash");
-
-    //    anim.SetTrigger("Slash");
-    //    SlashAngle();
-    //    yield return new WaitForSeconds(0.8f);
-    //    anim.ResetTrigger("Slash");
-
-    //    anim.SetTrigger("Slash");
-    //    SlashAngle();
-    //    yield return new WaitForSeconds(0.9f);
-    //    anim.ResetTrigger("Slash");
-
-    //    ResetAllAttacks();
-    //}
 
     IEnumerator TripleSlash()
     {
@@ -339,7 +390,7 @@ public class Boss : Enemy
     }
     private void OnTriggerEnter2D(Collider2D _other)
     {
-        if (_other.GetComponent<PlayerMovement>() != null && diveAttack)
+        if (_other.GetComponent<PlayerMovement>() != null && (diveAttack || bounceAttack))
         {
             _other.GetComponent<PlayerMovement>().TakeDamage(damage * 2);
             PlayerMovement.Instance.playerState.recoilingX = true;
@@ -361,5 +412,148 @@ public class Boss : Enemy
             _spawnDistance += 5;
         }
         ResetAllAttacks();
+    }
+
+    void BarrageBendDown()
+    {
+        attacking = true;
+        rb.linearVelocity = Vector2.zero;
+        barrageAttack = true;
+        anim.SetTrigger("BendDown");
+    }
+
+    public IEnumerator Barrage()//used BossEvent
+    {
+        rb.linearVelocity = Vector2.zero;
+
+        float _currentAngle = 30f;
+        for (int i = 0; i < 10; i++)
+        {
+            Debug.Log("launch");
+            GameObject _projectile = Instantiate(barrageFireball, transform.position, Quaternion.Euler(0, 0, _currentAngle));
+
+            if (facingRight)
+            {
+                _projectile.transform.eulerAngles = new Vector3(_projectile.transform.eulerAngles.x, 0, _currentAngle);
+            }
+            else
+            {
+                _projectile.transform.eulerAngles = new Vector3(_projectile.transform.eulerAngles.x, 180, _currentAngle);
+            }
+
+            _currentAngle += 5f;
+
+            yield return new WaitForSeconds(0.3f);
+        }
+        yield return new WaitForSeconds(0.1f);
+        anim.SetBool("Cast", false);
+        ResetAllAttacks();
+    }
+
+    void OutbreakBendDown()
+    {
+        attacking = true;
+        rb.linearVelocity = Vector2.zero;
+        moveToPosition = new Vector2(transform.position.x, rb.position.y + 5);
+        outbreakAttack = true;
+        anim.SetTrigger("BendDown");
+    }
+
+    public IEnumerator Outbreak()
+    {
+        yield return new WaitForSeconds(1f);
+        anim.SetBool("Cast", true);
+
+        rb.linearVelocity = Vector2.zero;
+        for (int i = 0; i < 30; i++)
+        {
+            Instantiate(barrageFireball, transform.position, Quaternion.Euler(0, 0, Random.Range(110, 130))); //downwards
+            Instantiate(barrageFireball, transform.position, Quaternion.Euler(0, 0, Random.Range(50, 70))); // diagonally right
+            Instantiate(barrageFireball, transform.position, Quaternion.Euler(0, 0, Random.Range(260, 280))); // diagonally left
+
+            yield return new WaitForSeconds(0.2f);
+        }
+        yield return new WaitForSeconds(0.1f);
+        rb.constraints = RigidbodyConstraints2D.None;
+        rb.constraints = RigidbodyConstraints2D.FreezeRotation;
+        rb.linearVelocity = new Vector2(rb.linearVelocity.x, -10);
+        yield return new WaitForSeconds(0.1f);
+        anim.SetBool("Cast", false);
+        ResetAllAttacks();
+    }
+
+    void BounceAttack()
+    {
+        attacking = true;
+        bounceCount = Random.Range(2, 5);
+        BounceBendDown();
+    }
+
+    int _bounces = 0;
+    public void CheckBounce()
+    {
+        if (_bounces < bounceCount - 1)
+        {
+            _bounces++;
+            BounceBendDown();
+        }
+        else
+        {
+            _bounces = 0;
+            anim.Play("Boss_Run");
+        }
+    }
+
+    public void BounceBendDown()
+    {
+        rb.linearVelocity = Vector2.zero;
+        moveToPosition = new Vector2(PlayerMovement.Instance.transform.position.x, rb.position.y + 10);
+        bounceAttack = true;
+        anim.SetTrigger("BendDown");
+    }
+
+    public void CalculateTargetAngle()
+    {
+        Vector3 _directionToTarget = (PlayerMovement.Instance.transform.position - transform.position).normalized;
+
+        float _angleOfTarget = Mathf.Atan2(_directionToTarget.y, _directionToTarget.x) * Mathf.Rad2Deg;
+        rotationDirectionToTarget = _angleOfTarget;
+    }
+
+    public IEnumerator Stunned()
+    {
+        stunned = true;
+        hitCounter = 0;
+        anim.SetBool("Stunned", true);
+        yield return new WaitForSeconds(6f);
+        anim.SetBool("Stunned", false);
+        stunned = false;
+    }
+    protected override void Death(float _destroyTime)
+    {
+        Debug.Log("DEATH FUNCTION CALLED");
+        ResetAllAttacks();
+        alive = false;
+        rb.linearVelocity = new Vector2(rb.linearVelocity.x, -25);
+
+        // Thêm debug để chắc chắn gọi trigger
+        Debug.Log("Calling Die Trigger");
+        anim.SetTrigger("Die");
+        Debug.Log("DIE TRIGGER SET!");
+
+        // Xác nhận animation
+        if (anim.GetCurrentAnimatorStateInfo(0).IsName("Die"))
+        {
+            Debug.Log("Die animation is playing");
+        }
+        else
+        {
+            Debug.Log("Die animation is NOT playing");
+        }
+    }
+
+    public void DestroyAfterDeath()
+    {
+        Destroy(gameObject);
     }
 }

@@ -6048,6 +6048,10 @@ PrefabInstance:
       value: 974003379
       objectReference: {fileID: 0}
     - target: {fileID: 8353546610626486707, guid: 93828a2f2d4e3d244a8c5658dc2a3ce7, type: 3}
+      propertyPath: damage
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8353546610626486707, guid: 93828a2f2d4e3d244a8c5658dc2a3ce7, type: 3}
       propertyPath: manaStorage
       value: 
       objectReference: {fileID: 951478577}
@@ -27434,6 +27438,10 @@ PrefabInstance:
       propertyPath: wallCheckPoint
       value: 
       objectReference: {fileID: 1519795696}
+    - target: {fileID: 9023237858789661113, guid: ba67c6b3823f9aa44b648dafa05ea960, type: 3}
+      propertyPath: barrageFireball
+      value: 
+      objectReference: {fileID: 5412143502058419812, guid: 0cf592e4d9865d94a96582e46785f340, type: 3}
     - target: {fileID: 9023237858789661113, guid: ba67c6b3823f9aa44b648dafa05ea960, type: 3}
       propertyPath: whatIsGround.m_Bits
       value: 8

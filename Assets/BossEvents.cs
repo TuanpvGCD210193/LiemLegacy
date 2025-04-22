@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class BossEvents : MonoBehaviour
@@ -39,6 +40,52 @@ public class BossEvents : MonoBehaviour
     void Parrying()
     {
         Boss.Instance.parrying = true;
+    }
+
+    void BendDownCheck()
+    {
+        if (Boss.Instance.barrageAttack)
+        {
+            StartCoroutine(BarrageAttackTransition());
+        }
+
+        if (Boss.Instance.outbreakAttack)
+        {
+            StartCoroutine(OutbreakAttackTransition());
+        }
+        if (Boss.Instance.bounceAttack)
+        {
+            Boss.Instance.anim.SetTrigger("Bounce1");
+        }
+    }
+
+    void BarrageOrOutbreak()
+    {
+        if (Boss.Instance.barrageAttack)
+        {
+            Boss.Instance.StartCoroutine(Boss.Instance.Barrage());
+        }
+        if (Boss.Instance.outbreakAttack)
+        {
+            Boss.Instance.StartCoroutine(Boss.Instance.Outbreak());
+        }
+    }
+
+    IEnumerator OutbreakAttackTransition()
+    {
+        yield return new WaitForSeconds(1f);
+        Boss.Instance.anim.SetBool("Cast", true);
+    }
+
+    IEnumerator BarrageAttackTransition()
+    {
+        yield return new WaitForSeconds(1f);
+        Boss.Instance.anim.SetBool("Cast", true);
+    }
+
+    void DestroyAfterDeath()
+    {
+        Boss.Instance.DestroyAfterDeath();
     }
 
 }
