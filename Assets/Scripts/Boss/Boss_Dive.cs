@@ -54,6 +54,10 @@ public class Boss_Dive : StateMachineBehaviour
 
             if (!callOnce)
             {
+                GameObject _impactParticle = Instantiate(Boss.Instance.impactParticle,
+                    Boss.Instance.groundCheckPoint.position, Quaternion.identity);
+                Destroy(_impactParticle, 4f);
+
                 Debug.Log(" CALLING DivingPillars() AND RESETTING ATTACK");
                 Boss.Instance.DivingPillars();
                 animator.SetBool("Dive", false);

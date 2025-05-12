@@ -24,6 +24,9 @@ public class Boss_Bounce2 : StateMachineBehaviour
             Boss.Instance.divingCollider.SetActive(false);
             if (!callOnce)
             {
+                GameObject _impactParticle = Instantiate(Boss.Instance.impactParticle, Boss.Instance.groundCheckPoint.position, Quaternion.identity);
+                Destroy(_impactParticle, 4f);
+
                 Boss.Instance.ResetAllAttacks();
                 Boss.Instance.CheckBounce();
                 callOnce = true;

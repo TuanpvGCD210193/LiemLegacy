@@ -172,7 +172,7 @@ Transform:
   m_GameObject: {fileID: 1097828812281042819}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.64, y: -0.17, z: 0}
+  m_LocalPosition: {x: 0.34, y: -0.37, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -203,7 +203,7 @@ Transform:
   m_GameObject: {fileID: 3597039276795653059}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.01, y: -0.9, z: 0}
+  m_LocalPosition: {x: -0.43, y: -1.9, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -318,6 +318,7 @@ GameObject:
   - component: {fileID: 7497584884416489259}
   - component: {fileID: 6996487174896251757}
   - component: {fileID: 5487027408427389015}
+  - component: {fileID: 1740921512839569152}
   m_Layer: 6
   m_Name: Player
   m_TagString: Player
@@ -389,7 +390,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 974003379
   m_SortingLayer: 2
-  m_SortingOrder: 2
+  m_SortingOrder: 3
   m_Sprite: {fileID: 21300000, guid: 097737625e3c0e8419ccfffab34674a8, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -704,3 +705,15 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &1740921512839569152
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8514252052589179390}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5087c9f6f07846842be44faea7cef566, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

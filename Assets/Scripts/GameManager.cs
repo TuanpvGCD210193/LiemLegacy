@@ -14,6 +14,8 @@ public class GameManager : MonoBehaviour
 
     public GameObject shade;
 
+    public bool Boss_Defeated = false;
+
     [SerializeField] FadeUI pauseMenu;
     [SerializeField] float fadeTime;
     public bool gameIsPaused;
@@ -44,6 +46,8 @@ public class GameManager : MonoBehaviour
         SaveScene();
         DontDestroyOnLoad(gameObject);
         bench = FindObjectOfType<Bench>();
+
+        SaveData.Instance.LoadBossData();
     }
 
     private void Update()

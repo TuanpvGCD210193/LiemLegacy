@@ -31,7 +31,7 @@ public class Boss_Run : StateMachineBehaviour
             Boss.Instance.Flip();
             Vector2 _target = new Vector2(PlayerMovement.Instance.transform.position.x, rb.position.y);
             Vector2 _newPos = Vector2.MoveTowards(rb.position, _target, Boss.Instance.runSpeed * Time.fixedDeltaTime);
-            Boss.Instance.runSpeed = Boss.Instance.speed; // Dung tam
+            //Boss.Instance.runSpeed = Boss.Instance.speed; // Dung tam
             rb.MovePosition(_newPos);
         }
         else

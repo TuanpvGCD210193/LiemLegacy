@@ -85,7 +85,11 @@ public class BossEvents : MonoBehaviour
 
     void DestroyAfterDeath()
     {
+        SpawnBoss.Instance.IsNotTrigger();
         Boss.Instance.DestroyAfterDeath();
+        GameManager.Instance.Boss_Defeated = true;
+        SaveData.Instance.SaveBossData();
+        SaveData.Instance.SavePlayerData();
     }
 
 }

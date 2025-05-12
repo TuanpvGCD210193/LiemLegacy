@@ -25,7 +25,7 @@ Transform:
   m_GameObject: {fileID: 449563403211615601}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.117, y: -1.841, z: 0}
+  m_LocalPosition: {x: 1.19, y: -1.841, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -279,12 +279,12 @@ MonoBehaviour:
   groundCheckPoint: {fileID: 6471481878841540512}
   wallCheckPoint: {fileID: 7877437993245222121}
   groundCheckY: 0.2
-  groundCheckX: 0.5
+  groundCheckX: 0.4
   whatIsGround:
     serializedVersion: 2
     m_Bits: 8
   runSpeed: 0
-  impactParticle: {fileID: 0}
+  impactParticle: {fileID: 3824608301138951699, guid: 50d22bde3ac94d44b8056b9123fbb9d7, type: 3}
   attacking: 0
   attackCountdown: 0
   damagedPlayer: 0
@@ -293,6 +293,12 @@ MonoBehaviour:
   diveAttack: 0
   divingCollider: {fileID: 3304246808778721858}
   pillar: {fileID: 8462035770330504153, guid: 575884529ae55584c83461636249444a, type: 3}
+  barrageAttack: 0
+  barrageFireball: {fileID: 5412143502058419812, guid: 0cf592e4d9865d94a96582e46785f340, type: 3}
+  outbreakAttack: 0
+  bounceAttack: 0
+  rotationDirectionToTarget: 0
+  bounceCount: 0
 --- !u!1 &3304246808778721858
 GameObject:
   m_ObjectHideFlags: 0
@@ -319,7 +325,7 @@ Transform:
   m_GameObject: {fileID: 3304246808778721858}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -4.01, z: 0}
+  m_LocalPosition: {x: 0, y: -3.9, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -355,7 +361,7 @@ CircleCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
@@ -386,9 +392,9 @@ Transform:
   m_GameObject: {fileID: 4234251579160652310}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -3.666, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalPosition: {x: 0.11, y: -3.74, z: 0}
+  m_LocalScale: {x: 2.08, y: 2.08, z: 2.08}
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 208889168524385357}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

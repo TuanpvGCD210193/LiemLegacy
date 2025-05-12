@@ -38,6 +38,8 @@ public struct SaveData
     public string sceneWithShade;
     public Quaternion shadeRot;
 
+    public bool Boss_Defeated;
+
 
     public void Initialize()
     {
@@ -258,4 +260,36 @@ public struct SaveData
         }
     }
     #endregion
+
+    public void SaveBossData()
+    {
+        if (!File.Exists(Application.persistentDataPath + "/save.boss.data")) //if file doesnt exist, well create the file
+        {
+            BinaryWriter writer = new BinaryWriter(File.Create(Application.persistentDataPath + "/save.boss.data"));
+        }
+
+        using (BinaryWriter writer = new BinaryWriter(File.OpenWrite(Application.persistentDataPath + "/save.boss.data")))
+        {
+            Boss_Defeated = GameManager.Instance.Boss_Defeated;
+
+            writer.Write(Boss_Defeated);
+        }
+    }
+
+    public void LoadBossData()
+    {
+        if (File.Exists(Application.persistentDataPath + "/save.Boss.data"))
+        {
+            using (BinaryReader reader = new BinaryReader(File.OpenRead(Application.persistentDataPath + "/save.boss.data")))
+            {
+                Boss_Defeated = reader.ReadBoolean();
+
+                GameManager.Instance.Boss_Defeated = Boss_Defeated;
+            }
+        }
+        else
+        {
+            Debug.Log("Boss doesnt exist");
+        }
+    }
 }
