@@ -1,9 +1,10 @@
 # ⚔️ LiemLegacy | 2D Metroidvania Action Game
 
 <p align="center">
-  <img src="https://raw.githubusercontent.com/TuanpvGCD210193/LiemLegacy/main/Screenshot.png" width="750" alt="LiemLegacy Gameplay Showcase">
+<img width="607" height="605" alt="{7A42FB24-11F7-4724-BDD9-8632BE25FC89}" src="https://github.com/user-attachments/assets/43b0d2a0-634d-4704-a613-b6cdce2512d1" />
+
   <br>
-  <i>"A journey of passion, technical precision, and immersive storytelling."</i>
+  <i> Figure 1 A journey of passion, technical precision, and immersive storytelling.</i>
 </p>
 
 ---
@@ -25,6 +26,22 @@
 | **UI/UX Integration** | Built interactive Inventory and Ability systems (Dash, Double Jump) using **Unity Canvas & Event Systems**. |
 | **Performance** | Managed object life cycles and memory usage to maintain stable frame rates during intensive combat. |
 
+
+---
+## 📸 Screenshot
+<p align="center">
+<img width="600" height="480" alt="clideo_editor_718a0353e36a4b39a9cbcd8b7387dd94" src="https://github.com/user-attachments/assets/64e12362-e9df-4a7b-b504-28288eb59ced" />
+  <br>
+  <i>Figure 2 A Movement.</i>
+
+<img width="446" height="297" alt="{E9E1018E-A77F-4655-BF0A-4371603AC8EE}" src="https://github.com/user-attachments/assets/da6782e8-9581-4979-b767-b7421969e44e" />
+  <br>
+  <i>Figure 3 Double jumb ability.</i>
+  
+<img width="447" height="297" alt="{DFAB34E9-05A8-42E2-A484-347B85B3A292}" src="https://github.com/user-attachments/assets/e12c550d-bb94-403c-897f-38f4821ed730" />
+  <br>
+  <i>Figure 3 Dash ability.</i>
+  
 ---
 
 ## 🏗️ Architecture & Tech Stack
