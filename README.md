@@ -11,15 +11,17 @@ My journey with this game was one of constant learning and refinement. I spent c
 
 <img width="443" height="298" alt="{415FF1FC-1896-457D-9B3A-956A35F6A29C}" src="https://github.com/user-attachments/assets/18bdb934-90eb-41f9-8e03-6d1a934c83d1" />
 
+
+
 <img width="600" height="480" alt="clideo_editor_718a0353e36a4b39a9cbcd8b7387dd94" src="https://github.com/user-attachments/assets/5fa7073b-4d6b-4e58-9394-f0e84edb731a" />
 
 🛠️ Tech Stack
-Engine: Unity (C#)  
-Architecture: Finite State Machine (FSM), Object-Oriented Programming (OOP)  
-Tools: Git, JSON Logging for system data tracking
+-Engine: Unity (C#)  
+-Architecture: Finite State Machine (FSM), Object-Oriented Programming (OOP)  
+-Tools: Git, JSON Logging for system data tracking
 
 🚀 How to Run
-Clone this repository to your local machine.  
-Open the project using Unity Editor (Recommended version: 6000.0.32f1 or later).  
-Navigate to Assets/Scenes and open Cave_1 or Menu.  
-Press Play to start the experience.
+-Clone this repository to your local machine.  
+=Open the project using Unity Editor (Recommended version: 6000.0.32f1 or later).  
+=Navigate to Assets/Scenes and open Cave_1 or Menu.  
+=Press Play to start the experience.
